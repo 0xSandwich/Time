@@ -58,6 +58,29 @@ window.addEventListener( 'mousemove', onMouseMove, false );
 let slider = {
     curIndex:0,
     containerAray:[],
+    sceneAray:[sunDial.init(),hourGlass.init(),clock.init()],
+    sceneInfoDom:[
+        document.querySelector('#title'),
+        document.querySelector('#description'),
+        document.querySelector('#howto')
+    ],
+    sceneData:[
+        [
+            "Le cadran solaire",
+            "le cadran ect ect ect",
+            "Bouger la souris sur l'écran pour faire bouger le soleil"
+        ],
+        [
+            "Sablier",
+            "le sablier ect ect ect",
+            " cliquez pour retourner le sablier"
+        ],
+        [
+            "Pendule",
+            "le pendule ect ect ect",
+            "remontez le pendule pour ect ect ect"
+        ]
+    ],
     group:new THREE.Group(),
     settings:{
         width:2,
@@ -65,13 +88,21 @@ let slider = {
         depth:1,
         margin:2
     },
+
+    setInfo : function() {
+        this.sceneInfoDom.map((element , index) => {
+            element.innerHTML=this.sceneData[this.curIndex][index]
+        })
+    },
     init : function() {
-        for(let i=0;i<3;i++){
-            console.log(this)
+        for(let i=0;i<this.sceneAray.length;i++){
             this.containerAray.push(new Container(this.settings.width,this.settings.height,this.settings.depth,i*(this.settings.width+this.settings.margin)))
+            this.containerAray[i].group.add(this.sceneAray[i])
             this.group.add(this.containerAray[i].group)
             scene.add(this.group)
         }
+        this.handleNext()
+        this.setInfo()
     },
     goTo: function(target) {
         if(target>=this.containerAray.length){
@@ -86,19 +117,16 @@ let slider = {
             }
             )
         this.curIndex = target
-    } 
+        this.setInfo()
+    },
+    handleNext:function(){
+        const btnNext = document.querySelector('#next-btn')
+        btnNext.addEventListener('click',()=>{
+            this.goTo(this.curIndex+1)
+        }, false)
+    }
 }
 slider.init()
-slider.containerAray[0].group.add(sunDial.init())
-slider.containerAray[1].group.add(hourGlass.init())
-slider.containerAray[2].group.add(clock.init())
-
-
-// Next scene handling
-const btnNext = document.querySelector('#next-btn')
-btnNext.addEventListener('click',()=>{
-    slider.goTo(slider.curIndex+1)
-}, false)
 
 /**
  * Renderer
