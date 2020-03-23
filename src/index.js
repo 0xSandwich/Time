@@ -1,10 +1,19 @@
 import './style/main.styl'
 import * as THREE from 'three'
+import setUp from './three-scenes/setup.js'
 import Container from './three-layout/Container.js'
 import sunDial from './three-scenes/sundial.js'
 import hourGlass from './three-scenes/hourglass.js'
 import clock from './three-scenes/clock.js'
 import {TweenLite} from 'gsap/all'
+import * as dat from 'dat.gui';
+
+const gui = new dat.GUI();
+const guiParams = {
+    sunLposX:0,
+    sunLintensity:1
+}
+gui.add(guiParams,'sunLintensity',0,5)
 
 /**
  * Scene
@@ -38,9 +47,13 @@ window.addEventListener('resize', () =>
 /**
  * Camera
  */
+const cameraWrapper = new THREE.Group()
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
 camera.position.z = 1
-scene.add(camera)
+cameraWrapper.position.y=0.2
+cameraWrapper.rotation.x=-0.3
+cameraWrapper.add(camera)
+scene.add(cameraWrapper)
 let mouse = {}
 function onMouseMove( event ) {
 	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
@@ -51,6 +64,9 @@ function onMouseMove( event ) {
     camera.rotation.x=(mouse.y/4)
 }
 window.addEventListener( 'mousemove', onMouseMove, false );
+
+// Light & Ground setup
+scene.add(setUp.init())
 
 /**
  * Objects
@@ -133,6 +149,8 @@ slider.init()
  */
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(sizes.width, sizes.height)
+renderer.shadowMap.enabled = true
+renderer.shadowMapType = THREE.PCFSoftShadowMap; // options are THREE.BasicShadowMap | THREE.PCFShadowMap | THREE.PCFSoftShadowMap
 document.body.appendChild(renderer.domElement)
 
 /**
@@ -140,8 +158,10 @@ document.body.appendChild(renderer.domElement)
  */
 const loop = () =>
 {
-    window.requestAnimationFrame(loop)
+    //Update dat GUI testing variables
+    setUp.spotL.intensity=guiParams.sunLintensity
 
+    window.requestAnimationFrame(loop)
     // Render
     renderer.render(scene, camera)
 }
