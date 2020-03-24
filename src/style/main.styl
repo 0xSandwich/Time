@@ -22,6 +22,7 @@ body
     // TITLE + START
     .title-home
         margin-top 14%   
+        z-index 4
 
     .title-home h1
         top 295px
@@ -38,7 +39,7 @@ body
         text-align center
         font-family 'Roboto Condensed'
         text-transform uppercase
-        margin-top 25%
+        margin-top 23%
         color white
         font-size 1.5em
         letter-spacing 0.2em
@@ -62,6 +63,8 @@ body
 
 
     // CLOCK
+    .clock
+        z-index 4
     .clock .hours,
     .clock .minutes
         position absolute 
@@ -103,10 +106,16 @@ body
         background var(--dark-color)
         
     //IMAGES
-    div#romain-numbers, 
+    div#romain-numbers
+        position absolute
+        top 3%
+        z-index 3
+        opacity 0.2
     div#triangle
         position absolute
-    
+        top 7%
+        z-index 3
+        opacity 0.5
 
 // INFO OF MUSEUM
 
