@@ -1,0 +1,245 @@
+* {
+  padding: 0;
+  margin: 0;
+  --light-color: #e3e7f8;
+  --medium-color: #6b77a3;
+  --dark-color: #192a65;
+}
+body {
+  overflow: hidden;
+}
+.home {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 2;
+  background: linear-gradient(to bottom, var(--light-color), var(--medium-color));
+  display: flex;
+  justify-content: center;
+  transition: all 2s ease-out;
+}
+.home .title-home {
+  margin-top: 14%;
+  z-index: 4;
+}
+.home .title-home h1 {
+  top: 295px;
+  font-size: 6em;
+  text-align: center;
+  font-family: 'Roboto Condensed';
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  background: linear-gradient(to bottom, var(--dark-color) 30%, var(--light-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.home .title-home p#start {
+  text-align: center;
+  font-family: 'Roboto Condensed';
+  text-transform: uppercase;
+  margin-top: 23%;
+  color: #fff;
+  font-size: 1.5em;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+}
+.home .title-home #start-container div.line {
+  position: absolute;
+  left: 50%;
+  background-color: #fff;
+  height: 1px;
+  width: 2px;
+  cursor: pointer;
+  opacity: 0;
+  transition: transform 0.7s ease-in-out;
+  will-change: transform, opacity;
+}
+.home .title-home #start-container:hover div.line {
+  opacity: 1;
+  transform: translateX(-3px) scaleX(82);
+}
+.home .clock {
+  z-index: 4;
+}
+.home .clock .hours,
+.home .clock .minutes {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.home .clock .hours {
+  transform: rotate(320deg);
+  will-change: transform;
+  animation-name: hours-animation;
+  animation-duration: 2s;
+  animation-play-state: paused;
+  animation-timing-function: cubic-bezier(0, 0, 0, 1.1);
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+.home .clock .needle {
+  position: absolute;
+}
+.home .clock .minutes .needle {
+  width: 10px;
+  height: 333px;
+  left: -4px;
+  bottom: -4px;
+  background: rgba(255,255,255,0.8);
+}
+.home .clock .hours .needle {
+  width: 10px;
+  height: 133px;
+  left: -4px;
+  bottom: -4px;
+  background: var(--dark-color);
+}
+.home div#romain-numbers {
+  position: absolute;
+  top: 3%;
+  z-index: 3;
+  opacity: 0.2;
+}
+.home div#triangle {
+  position: absolute;
+  top: 7%;
+  z-index: 3;
+  opacity: 0.5;
+}
+@-moz-keyframes hours-animation {
+  0% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(-1800deg);
+  }
+}
+@-webkit-keyframes hours-animation {
+  0% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(-1800deg);
+  }
+}
+@-o-keyframes hours-animation {
+  0% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(-1800deg);
+  }
+}
+@keyframes hours-animation {
+  0% {
+    transform: rotate(-40deg);
+  }
+  100% {
+    transform: rotate(-1800deg);
+  }
+}
+#timeline {
+  position: absolute;
+  width: 360px;
+  height: 150px;
+  top: 90%;
+  left: calc(50% - 175px);
+  z-index: 1;
+}
+#timeline #line {
+  width: 1px;
+  height: 2px;
+  position: absolute;
+  top: 8px;
+  background-color: #fff;
+  will-change: transform;
+  transition: transform 1.8s ease-out;
+  transform-origin: 0 0;
+}
+#timeline #dates {
+  display: flex;
+  justify-content: space-between;
+}
+#timeline #dates .date {
+  cursor: pointer;
+}
+#timeline #dates .date.candle,
+#timeline #dates .date.pendulum {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease-out;
+}
+#timeline #dates .date.sundial .text-description {
+  position: absolute;
+  transform: translateX(-20px) translateY(-60px);
+}
+#timeline #dates .date.candle .text-description {
+  position: absolute;
+  transform: translateX(-18px) translateY(-60px);
+}
+#timeline #dates .date.pendulum .text-description {
+  position: absolute;
+  transform: translateX(-27px) translateY(-60px);
+}
+#timeline #dates .date .text-description p {
+  text-transform: uppercase;
+  color: #fff;
+  font-family: 'Roboto Condensed';
+  letter-spacing: 0.15em;
+  text-align: center;
+  font-size: 0.8em;
+}
+#timeline #dates .date .circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #fff;
+  will-change: transform;
+  transition: transform 0.4s ease-in-out;
+}
+#timeline #dates .date .circle:hover {
+  transform: scaleX(1.2) scaleY(1.2);
+}
+#timeline #dates .date .circle::after {
+  content: "";
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  transform: translateX(-9px) translateY(-9px);
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+#timeline #dates .date .arrow-line {
+  width: 2px;
+  height: 32px;
+  position: absolute;
+  transform: translateX(7px) translateY(-45px);
+  background-color: #fff;
+}
+#timeline #dates .date .arrow-line::after {
+  content: "";
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  transform: translateX(-1.5px);
+  border-radius: 50%;
+  background-color: #fff;
+}
+#info {
+  position: absolute;
+  width: 250px;
+  right: 50px;
+  top: 50%;
+  z-index: 1;
+  color: #fff;
+  backdrop-filter: blur(200px);
+}
+#info #next-btn {
+  background: #fff;
+  color: #000;
+  padding: 15px;
+  cursor: pointer;
+}
+
+
+/*# sourceMappingURL=main.css.map*/
