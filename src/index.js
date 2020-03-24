@@ -12,16 +12,18 @@ import * as dat from 'dat.gui';
 const gui = new dat.GUI();
 const guiParams = {
     spotPosX:0,
-    spotIntensity:0.8,
+    spotIntensity:5,
     spotBlur:Math.PI * 0.1,
     sunLX:-2,
-    sunLintensity:0.4
+    sunLintensity:2,
+    ambiantLIntensity:1.3
 }
 gui.add(guiParams,'spotIntensity',0,5)
 gui.add(guiParams,'spotPosX',-10,10)
 gui.add(guiParams,'spotBlur',0,2)
 gui.add(guiParams,'sunLX',-10,10)
 gui.add(guiParams,'sunLintensity',0,2)
+gui.add(guiParams,'ambiantLIntensity',0,5)
 
 
 /**
@@ -217,6 +219,7 @@ setTimeout(function(){
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(sizes.width, sizes.height)
 renderer.shadowMap.enabled = true
+renderer.physicallyCorrectLights=true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap; // options are THREE.BasicShadowMap | THREE.PCFShadowMap | THREE.PCFSoftShadowMap
 document.body.appendChild(renderer.domElement)
 
@@ -230,6 +233,7 @@ const loop = () =>
     setUp.spotL.intensity=guiParams.spotIntensity
     setUp.spotL.position.x=guiParams.spotPosX
     setUp.spotL.angle=guiParams.spotBlur
+    setUp.ambiantL.intensity=guiParams.ambiantLIntensity
     
     setUp.sunL.intensity=guiParams.sunLintensity
     if (animatedMeshes.sun && slider.curIndex==0){

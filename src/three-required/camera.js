@@ -5,7 +5,7 @@ let camera = {
     cameraWrapper:new THREE.Group(),
     camera: new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight),
     init: function(){
-        this.camera.position.z = 1
+        this.camera.position.z = 0.7
         this.cameraWrapper.position.y=0.2
         this.cameraWrapper.rotation.x=-0.3
         window.addEventListener( 'mousemove', ()=>(this.onMouseMove(event)), false );
