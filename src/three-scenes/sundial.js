@@ -14,6 +14,10 @@ let sunDial = {
                 _fbx.children[2].castShadow=true
                 _fbx.children[2].receiveShadow=true
                 this.sceneGroup.add(_fbx)
+                for(let i=0;i < _fbx.children[2].children.length ; i++){
+                    _fbx.children[2].children[i].castShadow=true
+                    _fbx.children[2].children[i].receiveShadow=true
+                }
             }
         )
         return this.sceneGroup
