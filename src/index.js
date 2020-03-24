@@ -76,6 +76,12 @@ let slider = {
         document.querySelector('.home')
         
     ],
+    timeline : [
+        document.querySelector('.date.sundial'),
+        document.querySelector('.date.candle'),
+        document.querySelector('.date.pendulum'),
+        document.querySelector('#line')
+    ],
     sceneInfoDom:[
         document.querySelector('#title'),
         document.querySelector('#description'),
@@ -198,7 +204,26 @@ let slider = {
         const btnNext = document.querySelector('#next-btn')
         btnNext.addEventListener('click',()=>{
             this.goTo(this.curIndex+1)
+
+            this.timeline[this.curIndex].style.opacity = 1
+            this.timeline[this.curIndex].style.pointerEvents = 'auto'
+            if(this.curIndex+1==2)
+            {
+                this.timeline[3].style.transform = 'scaleX(175)'
+            }
+            else if (this.curIndex==2)
+            {
+                this.timeline[3].style.transform = 'scaleX(350)'
+            }
         }, false)
+        for (let i = 0; i < 3; i++) 
+        {
+            this.timeline[i].addEventListener('click',()=>
+            {
+                this.goTo(i)
+                console.log(i)
+            })
+        }
     }
 }
 slider.init()

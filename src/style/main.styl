@@ -120,8 +120,104 @@ body
         z-index 3
         opacity 0.5
 
-// INFO OF MUSEUM
 
+// 
+//TIMELINE
+//
+#timeline
+    position absolute
+    width 360px
+    height 150px
+    top 90%
+    left calc(50% - 175px)
+    z-index 1
+    
+
+    #line
+        //width 350px
+        width 1px
+        height 2px
+        position absolute
+        top 8px
+        background-color white
+        will-change transform
+        transition transform 1.8s ease-out
+        transform-origin 0 0
+
+    #dates
+        display flex 
+        justify-content space-between
+
+    #dates .date
+        cursor pointer
+
+    #dates .date.candle,
+    #dates .date.pendulum
+        opacity 0
+        pointer-events none
+        transition opacity 2s ease-out
+
+    #dates .date.sundial .text-description
+        position absolute 
+        transform translateX(-20px) translateY(-60px)
+
+    #dates .date.candle .text-description
+        position absolute 
+        transform translateX(-18px) translateY(-60px)
+
+    #dates .date.pendulum .text-description
+        position absolute 
+        transform translateX(-27px) translateY(-60px)
+
+    #dates .date .text-description p
+        text-transform uppercase
+        color white
+        font-family 'Roboto Condensed'
+        letter-spacing 0.15em
+        text-align center
+        font-size 0.8em
+
+    #dates .date .circle
+        width 16px
+        height 16px
+        border-radius 50%
+        background-color white
+        will-change transform 
+        transition transform 0.4s ease-in-out
+
+        &:hover
+            transform scaleX(1.2) scaleY(1.2)
+
+        &::after
+            content ""
+            position absolute
+            width 32px
+            height 32px
+            transform translateX(-9px) translateY(-9px)
+            border-radius 50%
+            border 1px solid white
+
+    #dates .date .arrow-line
+        width 2px
+        height 32px
+        position absolute
+        transform translateX(7px) translateY(-45px)
+        background-color white
+
+        &::after
+            content ""
+            position absolute
+            width 5px
+            height 5px
+            transform translateX(-1.5px)
+            border-radius 50%
+            background-color white
+        
+
+
+//
+// INFO OF MUSEUM
+//
 #info
     position: absolute
     width: 250px
