@@ -80,6 +80,9 @@ let camera = {
 // Light & Ground setup
 scene.add(setUp.init())
 
+
+
+
 /**
  * Objects
  */
@@ -206,6 +209,13 @@ let slider = {
 }
 slider.init()
 
+// Animated assets
+let animatedMeshes={
+}
+setTimeout(function(){
+    animatedMeshes.sun = slider.sceneAray[0].children[0].children[1]
+},100)
+console.log(animatedMeshes)
 /**
  * Renderer
  */
@@ -225,9 +235,11 @@ const loop = () =>
     setUp.spotL.intensity=guiParams.spotIntensity
     setUp.spotL.position.x=guiParams.spotPosX
     setUp.spotL.angle=guiParams.spotBlur
-    setUp.sunL.position.x=guiParams.sunLX
+    setUp.sunL.position.x=camera.mouse.x*20
     setUp.sunL.intensity=guiParams.sunLintensity
-
+    if (animatedMeshes.sun){
+        animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*3)
+    }
     window.requestAnimationFrame(loop)
     // Render
     renderer.render(scene, camera.camera)

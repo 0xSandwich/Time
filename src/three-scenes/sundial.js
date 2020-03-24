@@ -9,12 +9,11 @@ let sunDial = {
         this.loader.load(
             '/three-models/sundial/sundial.fbx',
             (_fbx)=>{
-                _fbx.children[1].position.set(0,0,0)
-                _fbx.children[1].scale.set(0.005,0.005,0.005)
-                _fbx.children[1].castShadow=true
-                _fbx.children[1].receiveShadow=true
+                _fbx.position.set(0,-0.1,0)
+                _fbx.scale.set(0.005,0.005,0.005)
+                _fbx.children[2].castShadow=true
+                _fbx.children[2].receiveShadow=true
                 this.sceneGroup.add(_fbx)
-                console.log(_fbx.children)
             }
         )
         return this.sceneGroup
