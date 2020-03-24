@@ -10,7 +10,7 @@ let camera = {
         this.cameraWrapper.rotation.x=-0.3
         window.addEventListener( 'mousemove', ()=>(this.onMouseMove(event)), false );
         this.cameraWrapper.add(this.camera)
-        scene.add(this.cameraWrapper)
+        return this.cameraWrapper
     },
     onMouseMove: function(event) {
         this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;

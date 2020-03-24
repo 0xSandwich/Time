@@ -1,5 +1,6 @@
 import './style/main.styl'
 import * as THREE from 'three'
+import camera from './three-required/camera.js'
 import setUp from './three-scenes/setup.js'
 import Container from './three-layout/Container.js'
 import sunDial from './three-scenes/sundial.js'
@@ -55,27 +56,7 @@ window.addEventListener('resize', () =>
 })
 
 // Camera
-let camera = {
-    mouse:{x:0,y:0},
-    cameraWrapper:new THREE.Group(),
-    camera: new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight),
-    init: function(){
-        this.camera.position.z = 1
-        this.cameraWrapper.position.y=0.2
-        this.cameraWrapper.rotation.x=-0.3
-        window.addEventListener( 'mousemove', ()=>(this.onMouseMove(event)), false );
-        this.cameraWrapper.add(this.camera)
-        scene.add(this.cameraWrapper)
-    },
-    onMouseMove: function(event) {
-        this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-        this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-        this.camera.position.x=-(this.mouse.x/4)
-        this.camera.position.y=-(this.mouse.y/4)
-        this.camera.rotation.y=-(this.mouse.x/4)
-        this.camera.rotation.x=(this.mouse.y/4)
-    }
-}
+scene.add(camera.init())
 
 // Light & Ground setup
 scene.add(setUp.init())
@@ -224,9 +205,9 @@ slider.init()
 let animatedMeshes={
 }
 setTimeout(function(){
-    animatedMeshes.sun = slider.sceneAray[0].children[0].children[1]
-},500)
-console.log(animatedMeshes)
+    animatedMeshes.sun = slider.sceneAray[0].children[0].children[0]
+},1000)
+
 /**
  * Renderer
  */
@@ -246,9 +227,10 @@ const loop = () =>
     setUp.spotL.intensity=guiParams.spotIntensity
     setUp.spotL.position.x=guiParams.spotPosX
     setUp.spotL.angle=guiParams.spotBlur
-    setUp.sunL.position.x=camera.mouse.x*20
+    
     setUp.sunL.intensity=guiParams.sunLintensity
-    if (animatedMeshes.sun){
+    if (animatedMeshes.sun && slider.curIndex==0){
+        setUp.sunL.position.x=camera.mouse.x*20
         animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*3)
     }
     window.requestAnimationFrame(loop)
