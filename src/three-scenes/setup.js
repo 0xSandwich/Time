@@ -10,7 +10,8 @@ let setup = {
         new THREE.CylinderGeometry(5,5,0.2,50,10,false),
         new THREE.MeshPhongMaterial({
             color:0xFFFFFF,
-            shininess:10,
+            shininess:100,
+            reflectivity:1,
             side:THREE.DoubleSide
         })
     ),
@@ -18,7 +19,6 @@ let setup = {
         new THREE.CylinderGeometry(5,5,0.2,50,10,false),
         new THREE.MeshPhongMaterial({
             color:0xFFFFFF,
-            shininess:10,
             side:THREE.DoubleSide
         })
     ),
@@ -26,7 +26,6 @@ let setup = {
         new THREE.CylinderGeometry(5,5,0.2,50,10,false),
         new THREE.MeshPhongMaterial({
             color:0xFFFfff,
-            shininess:10,
             side:THREE.DoubleSide
         })
     ),
@@ -34,7 +33,6 @@ let setup = {
         new THREE.CylinderGeometry(5,5,0.2,50,10,false),
         new THREE.MeshPhongMaterial({
             color:0xFFFfff,
-            shininess:10,
             side:THREE.DoubleSide
         })
     )

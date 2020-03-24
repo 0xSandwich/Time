@@ -7,7 +7,6 @@ import hourGlass from './three-scenes/hourglass.js'
 import clock from './three-scenes/clock.js'
 import {TweenLite} from 'gsap/all'
 import * as dat from 'dat.gui';
-import setup from './three-scenes/setup.js'
 
 const gui = new dat.GUI();
 const guiParams = {
@@ -48,33 +47,35 @@ window.addEventListener('resize', () =>
     sizes.height = window.innerHeight
 
     // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
+    camera.camera.aspect = sizes.width / sizes.height
+    camera.camera.updateProjectionMatrix()
 
     // Update renderer
     renderer.setSize(sizes.width, sizes.height)
 })
 
-/**
- * Camera
- */
-const cameraWrapper = new THREE.Group()
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
-camera.position.z = 1
-cameraWrapper.position.y=0.2
-cameraWrapper.rotation.x=-0.3
-cameraWrapper.add(camera)
-scene.add(cameraWrapper)
-let mouse = {}
-function onMouseMove( event ) {
-	mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-    camera.position.x=-(mouse.x/4)
-    camera.position.y=-(mouse.y/4)
-    camera.rotation.y=-(mouse.x/4)
-    camera.rotation.x=(mouse.y/4)
+// Camera
+let camera = {
+    mouse:{x:0,y:0},
+    cameraWrapper:new THREE.Group(),
+    camera: new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight),
+    init: function(){
+        this.camera.position.z = 1
+        this.cameraWrapper.position.y=0.2
+        this.cameraWrapper.rotation.x=-0.3
+        window.addEventListener( 'mousemove', ()=>(this.onMouseMove(event)), false );
+        this.cameraWrapper.add(this.camera)
+        scene.add(this.cameraWrapper)
+    },
+    onMouseMove: function(event) {
+        this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+        this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+        this.camera.position.x=-(this.mouse.x/4)
+        this.camera.position.y=-(this.mouse.y/4)
+        this.camera.rotation.y=-(this.mouse.x/4)
+        this.camera.rotation.x=(this.mouse.y/4)
+    }
 }
-window.addEventListener( 'mousemove', onMouseMove, false );
 
 // Light & Ground setup
 scene.add(setUp.init())
@@ -137,6 +138,7 @@ let slider = {
         })
     },
     init : function() {
+        camera.init()
         for(let i=0;i<this.sceneAray.length;i++){
             this.containerAray.push(new Container(this.settings.width,this.settings.height,this.settings.depth,i*(this.settings.width+this.settings.margin)))
             this.containerAray[i].group.add(this.sceneAray[i])
@@ -159,10 +161,10 @@ let slider = {
             }
         )
         TweenLite.to(
-            setup.walls.rotation,
+            setUp.walls.rotation,
             2,
             {
-                y:setup.walls.rotation.y+6.28319,
+                y:setUp.walls.rotation.y+6.28319,
                 ease:'Power3.easeInOut'
             }
         )
@@ -174,19 +176,19 @@ let slider = {
                 ease:'Power3.easeInOut'
             }
         )
-        var initial = new THREE.Color(setup.sunL.color.getHex())
+        var initial = new THREE.Color(setUp.sunL.color.getHex())
         console.log(initial)
         console.log(target)
         TweenLite.to(
             initial,
-            2,
+            3,
             {
                 r:this.sceneData[target][3].r,
                 g:this.sceneData[target][3].g,
                 b:this.sceneData[target][3].b,
             onUpdate:function(){
-                setup.sunL.color=initial
-                setup.ambiantL.color=initial
+                setUp.sunL.color=initial
+                setUp.ambiantL.color=initial
             }
             }
         )
@@ -218,7 +220,7 @@ document.body.appendChild(renderer.domElement)
  */
 const loop = () =>
 {
-    setup.spotL
+    setUp.spotL
     //Update dat GUI testing variables
     setUp.spotL.intensity=guiParams.spotIntensity
     setUp.spotL.position.x=guiParams.spotPosX
@@ -228,7 +230,7 @@ const loop = () =>
 
     window.requestAnimationFrame(loop)
     // Render
-    renderer.render(scene, camera)
+    renderer.render(scene, camera.camera)
 }
 
 loop()
