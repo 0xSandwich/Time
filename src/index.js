@@ -27,7 +27,7 @@ gui.add(guiParams,'sunLintensity',0,2)
  * Scene
  */
 const scene = new THREE.Scene()
-scene.background = new THREE.Color(0xFFFFFF)
+scene.background = new THREE.Color(0x2f2f2f)
 scene.fog = new THREE.Fog( scene.background, 1, 4 );
 
 /**

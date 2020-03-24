@@ -66,7 +66,6 @@ let setup = {
         this.walls.add(this.ground)
         this.walls.add(this.wallL)
         this.walls.add(this.wallR)
-
         this.setupGroup.add(this.spotL)
         this.setupGroup.add(this.ambiantL)
         this.setupGroup.add(this.spotL.target)

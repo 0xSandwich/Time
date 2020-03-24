@@ -1,17 +1,22 @@
 import * as THREE from 'three'
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
 let sunDial = {
+    loader:new FBXLoader(),
     // Le groupe dans lequel tous les mesh doivent être ajouter
     sceneGroup:new THREE.Group(),
-    cube:new THREE.Mesh(
-        new THREE.BoxGeometry(0.2,0.2,0.2),
-        new THREE.MeshPhongMaterial({color:0xffffff})
-    ),
     init:function(){
-        this.cube.castShadow=true
-        // Ajouter ici tous les mesh créés au groupe
-        this.sceneGroup.add(this.cube)
-        // On retourne l'ensemble de la scène
+        this.loader.load(
+            '/three-models/sundial/sundial.fbx',
+            (_fbx)=>{
+                _fbx.children[1].position.set(0,0,0)
+                _fbx.children[1].scale.set(0.005,0.005,0.005)
+                _fbx.children[1].castShadow=true
+                _fbx.children[1].receiveShadow=true
+                this.sceneGroup.add(_fbx)
+                console.log(_fbx.children)
+            }
+        )
         return this.sceneGroup
     }
 }
