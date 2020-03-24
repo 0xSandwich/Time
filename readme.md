@@ -1,14 +1,8 @@
-# Webpack template
+# Time measurement museum
+Made with THREE.Js
 
 ## Features
-- Basic files support (html, css, js, stylus, fonts, images)
-- Extracted CSS
-- Transpiling (with Babel)
-- Sourcemaps
-- Clean dist
-- Dev server with local network support
-- Static files
-- Cache breaker
+
 
 ## Instructions
 
