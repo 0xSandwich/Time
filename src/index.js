@@ -80,9 +80,6 @@ let camera = {
 // Light & Ground setup
 scene.add(setUp.init())
 
-
-
-
 /**
  * Objects
  */
@@ -214,7 +211,7 @@ let animatedMeshes={
 }
 setTimeout(function(){
     animatedMeshes.sun = slider.sceneAray[0].children[0].children[1]
-},100)
+},500)
 console.log(animatedMeshes)
 /**
  * Renderer
