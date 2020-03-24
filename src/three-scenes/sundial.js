@@ -9,7 +9,7 @@ let sunDial = {
     sceneGroup:new THREE.Group(),
     init:function(){
         this.gltfLoader.load(
-            '/three-models/sundial/sundial.gltf',
+            'three-models/sundial/sundial.gltf',
             (_gltf)=>{
                 let scene = _gltf.scene.children[0]
                 let sun = scene.children[0].children[1]
