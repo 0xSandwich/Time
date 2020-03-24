@@ -95,17 +95,32 @@ let slider = {
         [
             "Le cadran solaire",
             "le cadran ect ect ect",
-            "Bouger la souris sur l'écran pour faire bouger le soleil"
+            "Bouger la souris sur l'écran pour faire bouger le soleil",
+            {
+                r:0.48,
+                g:0.757,
+                b:1
+            }
         ],
         [
             "Sablier",
             "le sablier ect ect ect",
-            " cliquez pour retourner le sablier"
+            " cliquez pour retourner le sablier",
+            {
+                r:0.8,
+                g:0.5,
+                b:0
+            }
         ],
         [
             "Pendule",
             "le pendule ect ect ect",
-            "remontez le pendule pour ect ect ect"
+            "remontez le pendule pour ect ect ect",
+            {
+                r:0.3,
+                g:0.9,
+                b:0.2
+            }
         ]
     ],
     group:new THREE.Group(),
@@ -142,7 +157,41 @@ let slider = {
                 x:-(target*(this.settings.width+this.settings.margin)),
                 ease:'Power3.easeInOut'
             }
-            )
+        )
+        TweenLite.to(
+            setup.walls.rotation,
+            2,
+            {
+                y:setup.walls.rotation.y+6.28319,
+                ease:'Power3.easeInOut'
+            }
+        )
+        TweenLite.to(
+            this.containerAray[this.curIndex].group.rotation,
+            2,
+            {
+                x:this.containerAray[this.curIndex].group.rotation.x-6.28319,
+                ease:'Power3.easeInOut'
+            }
+        )
+        var initial = new THREE.Color(setup.sunL.color.getHex())
+        console.log(initial)
+        console.log(target)
+        TweenLite.to(
+            initial,
+            2,
+            {
+                r:this.sceneData[target][3].r,
+                g:this.sceneData[target][3].g,
+                b:this.sceneData[target][3].b,
+            onUpdate:function(){
+                setup.sunL.color=initial
+                setup.ambiantL.color=initial
+            }
+            }
+        )
+
+        
         this.curIndex = target
         this.setInfo()
     },
@@ -161,7 +210,7 @@ slider.init()
 const renderer = new THREE.WebGLRenderer()
 renderer.setSize(sizes.width, sizes.height)
 renderer.shadowMap.enabled = true
-renderer.shadowMapType = THREE.PCFSoftShadowMap; // options are THREE.BasicShadowMap | THREE.PCFShadowMap | THREE.PCFSoftShadowMap
+renderer.shadowMap.type = THREE.PCFSoftShadowMap; // options are THREE.BasicShadowMap | THREE.PCFShadowMap | THREE.PCFSoftShadowMap
 document.body.appendChild(renderer.domElement)
 
 /**
