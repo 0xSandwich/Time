@@ -4,7 +4,7 @@ let setup = {
     setupGroup:new THREE.Group(),
     ambiantL: new THREE.AmbientLight(0xffffff, 0.2),
     sunL: new THREE.DirectionalLight(0x00fffc, 0.8),
-    spotL: new THREE.SpotLight(0x00ff9c, 1, 0, Math.PI * 0.2, 0.5),
+    spotL: new THREE.SpotLight(0x00ff9c, 1, 0, Math.PI * 0.1, 1),
     ground: new THREE.Mesh(
         new THREE.PlaneGeometry(10,10),
         new THREE.MeshPhongMaterial({
