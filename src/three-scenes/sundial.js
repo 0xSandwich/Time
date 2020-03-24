@@ -5,7 +5,7 @@ let sunDial = {
     sceneGroup:new THREE.Group(),
     cube:new THREE.Mesh(
         new THREE.BoxGeometry(0.2,0.2,0.2),
-        new THREE.MeshPhongMaterial()
+        new THREE.MeshPhongMaterial({color:0xffffff})
     ),
     init:function(){
         this.cube.castShadow=true

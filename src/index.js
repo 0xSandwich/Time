@@ -7,18 +7,29 @@ import hourGlass from './three-scenes/hourglass.js'
 import clock from './three-scenes/clock.js'
 import {TweenLite} from 'gsap/all'
 import * as dat from 'dat.gui';
+import setup from './three-scenes/setup.js'
 
 const gui = new dat.GUI();
 const guiParams = {
-    sunLposX:0,
-    sunLintensity:1
+    spotPosX:0,
+    spotIntensity:0.8,
+    spotBlur:Math.PI * 0.1,
+    sunLX:-2,
+    sunLintensity:0.4
 }
-gui.add(guiParams,'sunLintensity',0,5)
+gui.add(guiParams,'spotIntensity',0,5)
+gui.add(guiParams,'spotPosX',-10,10)
+gui.add(guiParams,'spotBlur',0,2)
+gui.add(guiParams,'sunLX',-10,10)
+gui.add(guiParams,'sunLintensity',0,2)
+
 
 /**
  * Scene
  */
 const scene = new THREE.Scene()
+scene.background = new THREE.Color(0xFFFFFF)
+scene.fog = new THREE.Fog( scene.background, 1, 4 );
 
 /**
  * Sizes
@@ -158,8 +169,13 @@ document.body.appendChild(renderer.domElement)
  */
 const loop = () =>
 {
+    setup.spotL
     //Update dat GUI testing variables
-    setUp.spotL.intensity=guiParams.sunLintensity
+    setUp.spotL.intensity=guiParams.spotIntensity
+    setUp.spotL.position.x=guiParams.spotPosX
+    setUp.spotL.angle=guiParams.spotBlur
+    setUp.sunL.position.x=guiParams.sunLX
+    setUp.sunL.intensity=guiParams.sunLintensity
 
     window.requestAnimationFrame(loop)
     // Render
