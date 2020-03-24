@@ -12,18 +12,17 @@ let sunDial = {
             '/three-models/sundial/sundial.gltf',
             (_gltf)=>{
                 let scene = _gltf.scene.children[0]
-                let sun = scene.children[0].children[0]
-                sun.material=new THREE.MeshBasicMaterial({color:0xfcba03})
+                let sun = scene.children[0].children[1]
+                sun.children[0].material=new THREE.MeshBasicMaterial({color:0xfcba03})
                 scene.position.set(0,-0.1,0)
                 scene.scale.set(0.005,0.005,0.005)
-                console.log(sun)
-                this.sceneGroup.add(scene)
                 scene.children[1].traverse((child)=>{
                     child.material=new THREE.MeshPhysicalMaterial({reflectivity:2})
                     child.castShadow=true
-                    console.log(child)
                     child.receiveShadow=true
                 })
+                
+                this.sceneGroup.add(scene)
             }
         )
         return this.sceneGroup

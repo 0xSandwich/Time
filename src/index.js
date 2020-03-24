@@ -201,11 +201,14 @@ let slider = {
 }
 slider.init()
 
+
 // Animated assets
 let animatedMeshes={
 }
 setTimeout(function(){
-    animatedMeshes.sun = slider.sceneAray[0].children[0].children[0]
+    animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
+    console.log(animatedMeshes.sun)
+    animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
 },1000)
 
 /**
@@ -232,6 +235,8 @@ const loop = () =>
     if (animatedMeshes.sun && slider.curIndex==0){
         setUp.sunL.position.x=camera.mouse.x*20
         animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*3)
+        console.log(animatedMeshes.sun.rotation.x)
+        animatedMeshes.clouds.position.x=-((camera.mouse.x)*600)
     }
     window.requestAnimationFrame(loop)
     // Render
