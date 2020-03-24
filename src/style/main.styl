@@ -17,7 +17,10 @@ body
     z-index 2
     background linear-gradient(to bottom, var(--light-color), var(--medium-color))
     display flex
-    justify-content center 
+    justify-content center
+
+    transition all 2s ease-out 
+
     
     // TITLE + START
     .title-home
@@ -76,8 +79,8 @@ body
         will-change transform 
 
         animation-name hours-animation
-        animation-duration 3s
-        animation-delay 2s
+        animation-duration 2s
+        animation-play-state paused
         animation-timing-function cubic-bezier(0, 0, 0, 1.10)
         animation-iteration-count 1
         animation-fill-mode forwards

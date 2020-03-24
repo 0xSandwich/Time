@@ -87,10 +87,17 @@ let slider = {
     curIndex:0,
     containerAray:[],
     sceneAray:[sunDial.init(),hourGlass.init(),clock.init()],
+    startInit : [
+        document.querySelector('#start'),
+        document.querySelector('.hours'),
+        document.querySelector('.home')
+        
+    ],
     sceneInfoDom:[
         document.querySelector('#title'),
         document.querySelector('#description'),
-        document.querySelector('#howto')
+        document.querySelector('#howto'),
+
     ],
     sceneData:[
         [
@@ -147,6 +154,13 @@ let slider = {
         }
         this.handleNext()
         this.setInfo()
+
+        this.startInit[0].addEventListener('click', () => 
+        {
+            this.startInit[1].style.animationPlayState = 'running'
+            this.startInit[2].style.opacity = 0
+            this.startInit[2].style.pointerEvents = 'none'           
+        })
     },
     goTo: function(target) {
         if(target>=this.containerAray.length){
