@@ -16,7 +16,7 @@ const guiParams = {
     spotBlur:Math.PI * 0.1,
     sunLX:-2,
     sunLintensity:2,
-    ambiantLIntensity:1.3
+    ambiantLIntensity:0.8
 }
 gui.add(guiParams,'spotIntensity',0,5)
 gui.add(guiParams,'spotPosX',-10,10)
