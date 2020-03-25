@@ -201,15 +201,18 @@ let slider = {
         this.setInfo()
     },
     handleNext:function(){
+        let checked = 0
         const btnNext = document.querySelector('#next-btn')
         btnNext.addEventListener('click',()=>{
             this.goTo(this.curIndex+1)
 
             this.timeline[this.curIndex].style.opacity = 1
             this.timeline[this.curIndex].style.pointerEvents = 'auto'
-            if(this.curIndex+1==2)
+
+            if(this.curIndex+1==2 && checked==0)
             {
                 this.timeline[3].style.transform = 'scaleX(175)'
+                checked = 1
             }
             else if (this.curIndex==2)
             {

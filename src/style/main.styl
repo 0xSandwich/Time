@@ -119,6 +119,22 @@ body
         top 7%
         z-index 3
         opacity 0.5
+    div#clock-circle div
+        position absolute 
+        top 3%
+        left 26.1%
+        width 914px
+        height 914px
+        border-radius 50%
+        background-color rgba(255, 255, 255, 0.05)
+
+    //LAZYLOAD
+    .lazyload
+        opacity 0
+        transition opacity 1s ease-in
+
+    .lazyload.is-loaded
+        opacity 1
 
 
 // 
