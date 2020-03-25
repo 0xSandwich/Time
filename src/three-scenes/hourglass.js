@@ -7,10 +7,10 @@ let hourGlass = {
     wrapper:new THREE.Group(),
     hourGlassWrapper:new THREE.Group(),
     decoration:new THREE.Group(),
-    sandMaterial: new THREE.MeshPhysicalMaterial({color:0xfff700,reflectivity:1,roughness:0.9,flatShading:true}),
+    sandMaterial: new THREE.MeshPhysicalMaterial({color:0xfff700,reflectivity:1,roughness:0.9}),
     sandGeometry: new THREE.CylinderGeometry(0.06,0.06,0.2,30,10,false),
     objectsMaterial: new THREE.MeshPhysicalMaterial({roughness:0.8,flatShading:true}),
-    glassMaterial: new THREE.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:0.2}),
+    glassMaterial: new THREE.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:0.2,roughness:0.3,metalness:0.4}),
 
     // Chargement modèle sablier
     init:function(){

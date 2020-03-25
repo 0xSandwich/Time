@@ -14,7 +14,7 @@ let sunDial = {
                 scene.position.set(0,-0.1,0)
                 scene.scale.set(0.005,0.005,0.005)
                 scene.children[1].traverse((child)=>{
-                    child.material=new THREE.MeshPhysicalMaterial({reflectivity:1,roughness:0.8,flatShading:true})
+                    child.material=new THREE.MeshPhysicalMaterial({roughness:0.8,flatShading:true})
                     child.castShadow=true
                     child.receiveShadow=true
                 })

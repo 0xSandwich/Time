@@ -6,16 +6,19 @@ import Container from './three-layout/Container.js'
 import sunDial from './three-scenes/sundial.js'
 import hourGlass from './three-scenes/hourglass.js'
 import clock from './three-scenes/clock.js'
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import {TweenLite} from 'gsap/all'
 import * as dat from 'dat.gui';
 
 const gui = new dat.GUI();
 const guiParams = {
-    spotPosX:0,
-    spotIntensity:5,
+    spotPosX:-1.6,
+    spotIntensity:4.6,
     spotBlur:Math.PI * 0.1,
     spotLPenumbra:1,
-    sunLintensity:2,
+    sunLintensity:1,
     ambiantLIntensity:0.8,
     cubHeight:1
 }
@@ -49,6 +52,9 @@ window.addEventListener('resize', () =>
     // Update sizes object
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
+
+    // Update composer
+    composer.setSize( sizes.width, sizes.height );
 
     // Update camera
     camera.camera.aspect = sizes.width / sizes.height
@@ -113,8 +119,8 @@ let slider = {
             "What should we put the sundial on ?",
             "Whether it's a pedestal, a low wall, a water basin, on the patio, on a flowerpot, it can be used for anything. You can let your imagination run wild.",
             {
-                r:0.48,
-                g:0.757,
+                r:0,
+                g:0.45,
                 b:1
             }
         ],
@@ -319,12 +325,51 @@ console.log(slider.sceneAray[1].children[0])
 /**
  * Renderer
  */
-const renderer = new THREE.WebGLRenderer()
+const renderer = new THREE.WebGLRenderer({})
 renderer.setSize(sizes.width, sizes.height)
 renderer.shadowMap.enabled = true
 renderer.physicallyCorrectLights=true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap; // options are THREE.BasicShadowMap | THREE.PCFShadowMap | THREE.PCFSoftShadowMap
 document.body.appendChild(renderer.domElement)
+let renderScene = new RenderPass( scene, camera.camera ) 
+// Post processing
+var params = {
+    exposure: 0.9,
+    bloomStrength: 0.4,
+    bloomThreshold: 0.1,
+    bloomRadius: 1
+};
+let bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+bloomPass.threshold = params.bloomThreshold;
+bloomPass.strength = params.bloomStrength;
+bloomPass.radius = params.bloomRadius;
+let composer = new EffectComposer( renderer );
+composer.addPass( renderScene );
+composer.addPass( bloomPass );
+
+gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
+
+    renderer.toneMappingExposure = Math.pow( value, 4.0 );
+
+} );
+
+gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
+
+    bloomPass.threshold = Number( value );
+
+} );
+
+gui.add( params, 'bloomStrength', 0.0, 3.0 ).onChange( function ( value ) {
+
+    bloomPass.strength = Number( value );
+
+} );
+
+gui.add( params, 'bloomRadius', 0.0, 1.0 ).step( 0.01 ).onChange( function ( value ) {
+
+    bloomPass.radius = Number( value );
+
+} );
 
 /**
  * Loop
@@ -355,7 +400,7 @@ const loop = () =>
     }
     window.requestAnimationFrame(loop)
     // Render
-    renderer.render(scene, camera.camera)
+    composer.render();
 }
 
 loop()

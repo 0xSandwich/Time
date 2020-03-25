@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 let wallMaterial = new THREE.MeshStandardMaterial({
     color:0xffffff,
-    roughness:0.8,
+    roughness:0,
     side:THREE.DoubleSide
 })
 let wallGeometry = new THREE.CylinderGeometry(5,5,0.2,50,10,false)
@@ -10,8 +10,8 @@ let wallGeometry = new THREE.CylinderGeometry(5,5,0.2,50,10,false)
 let setup = {
     walls: new THREE.Group(),
     setupGroup:new THREE.Group(),
-    ambiantL: new THREE.AmbientLight(new THREE.Color('hsl(208,100%,74%)'), 0.2),
-    sunL: new THREE.DirectionalLight(new THREE.Color('hsl(208,100%,74%)'), 0.3),
+    ambiantL: new THREE.AmbientLight(new THREE.Color(0x007bff), 0.2),
+    sunL: new THREE.DirectionalLight(new THREE.Color(0x007bff), 0.3),
     spotL: new THREE.SpotLight(0xFFFFFF, 0.4, 0, Math.PI * 0.1, 1),
     ground: new THREE.Mesh(
         wallGeometry,
@@ -49,7 +49,7 @@ let setup = {
         this.wallL.position.x=-1.5
         this.wallL.receiveShadow=true
 
-        this.sunL.position.set(-4,4,4)
+        this.sunL.position.set(-4,10,4)
         this.sunL.castShadow=true
         this.sunL.shadow.mapSize.height=2048
         this.sunL.shadow.mapSize.width=2048
