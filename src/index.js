@@ -86,7 +86,8 @@ let slider = {
     sceneInfoDom:[
         document.querySelector('#title'),
         document.querySelector('#description'),
-        document.querySelector('#howto'),
+        document.querySelector('#question'),
+        document.querySelector('#answer')
 
     ],
     sceneData:[
@@ -134,6 +135,7 @@ let slider = {
 
     setInfo : function() {
         this.sceneInfoDom.map((element , index) => {
+            console.log(element.innerHTML)
             element.innerHTML=this.sceneData[this.curIndex][index]
         })
     },
@@ -237,10 +239,21 @@ slider.init()
 let isPlaying = true
 let animatedMeshes={
 }
-setTimeout(function(){
-    animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
-    animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
-},1000)
+let getMeshes = () => {
+    setTimeout(function(){
+        if(slider.sceneAray[0].children.length != 0 && slider.sceneAray[1].length != 0){
+            animatedMeshes.hourGlassTop = slider.sceneAray[1].children[1]
+            animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0]
+            animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
+            animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
+        }
+        else {
+            console.log('pas de mesh')
+            getMeshes()
+        }
+    },800)
+}
+getMeshes()
 
 /**
  * Renderer
@@ -272,9 +285,9 @@ const loop = () =>
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }
     else if(slider.curIndex==1 && isPlaying) {
-        slider.sceneAray[1].children[0].scale.y+=0.001
-        slider.sceneAray[1].children[1].scale.y-=0.001
-        if(slider.sceneAray[1].children[1].scale.y <= 0.005){
+        animatedMeshes.hourGlassBot.scale.y+=0.001
+        animatedMeshes.hourGlassTop.scale.y-=0.001
+        if(animatedMeshes.hourGlassBot.scale.y <= 0.005){
             isPlaying= false
         }
     }
