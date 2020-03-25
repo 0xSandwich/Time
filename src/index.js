@@ -65,6 +65,25 @@ scene.add(camera.init())
 scene.add(setUp.init())
 
 /**
+ * Parallax
+ */
+const $cursorParallax = document.querySelectorAll('.parallax')
+console.log($cursorParallax)
+window.addEventListener('mousemove', (_event)=>
+{
+    const ratioX = camera.mouse.x - 0.5
+    const ratioY = camera.mouse.y - 0.5
+    $cursorParallax.forEach((_element, _key)=>
+    {
+        const strength = _key + 0.5
+        const translateX = -ratioX * 10 * strength
+        const translateY = ratioY * 10 * strength
+        _element.style.transform = `translateX(${translateX}%) translateY(${translateY}%)`
+    })
+})
+
+
+/**
  * Objects
  */
 let slider = {
