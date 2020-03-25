@@ -70,7 +70,6 @@ let hourGlass = {
         })
         this.wrapper.add(this.sceneGroup)
         this.wrapper.add(this.decoration)
-        console.log(this.wrapper)
         return this.wrapper
     }
 }

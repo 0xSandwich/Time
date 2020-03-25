@@ -271,17 +271,20 @@ let animatedMeshes={
 }
 let getMeshes = () => {
     setTimeout(function(){
-        if(slider.sceneAray[0].children.length != 0 && slider.sceneAray[1].length != 0){
-            console.log()
-            animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
-            animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
-            animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
-            animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
-        }
-        else {
+        if(slider.sceneAray[0].children.length == 0) {
+            console.log("No mesh")
             getMeshes()
         }
-    },800)
+        else {
+            console.log("Mesh Ok")
+            setTimeout(function(){
+                animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
+                animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
+                animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
+                animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
+            },200)
+        }
+    },200)
 }
 let hourGlassReverse = () =>{
     if (callOnce){
@@ -320,7 +323,6 @@ let hourGlassReverse = () =>{
 
 }
 getMeshes()
-console.log(slider.sceneAray[1].children[0])
 
 /**
  * Renderer
