@@ -4,9 +4,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 let hourGlass = {
     gltfLoader:new GLTFLoader(),
     sceneGroup:new THREE.Group(),
-    sandMaterial: new THREE.MeshPhongMaterial({color:0xffffff}),
+    wrapper:new THREE.Group(),
+    sandMaterial: new THREE.MeshPhysicalMaterial({color:0xfff700,reflectivity:1,roughness:0.8,flatShading:true}),
     sandGeometry: new THREE.CylinderGeometry(0.06,0.06,0.2,30,10,false),
-    objectsMaterial: new THREE.MeshPhysicalMaterial({reflectivity:1,roughness:0.8,flatShading:true}),
+    objectsMaterial: new THREE.MeshPhysicalMaterial({color:0xffffff,reflectivity:1,roughness:0.8,flatShading:true}),
     glassMaterial: new THREE.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:0.2}),
 
     // Chargement modèle sablier
@@ -41,15 +42,17 @@ let hourGlass = {
         sandTop.position.y=0.2
         sandTop.scale.y=1
 
-        // Ajouter ici tous les mesh créés au groupe
         this.sceneGroup.add(sandBot)
         this.sceneGroup.add(sandTop)
         this.sceneGroup.traverse((child)=>{
             child.castShadow=true
             child.receiveShadow=true
         })
-        // On retourne l'ensemble de la scène
-        return this.sceneGroup
+        this.sceneGroup.position.set(0,-0.17,0)
+        this.wrapper.add(this.sceneGroup)
+        console.log(this.wrapper)
+        this.wrapper.position.y=0.17
+        return this.wrapper
     }
 }
 

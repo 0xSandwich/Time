@@ -250,13 +250,13 @@ let animatedMeshes={
 let getMeshes = () => {
     setTimeout(function(){
         if(slider.sceneAray[0].children.length != 0 && slider.sceneAray[1].length != 0){
-            animatedMeshes.hourGlassTop = slider.sceneAray[1].children[1]
-            animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0]
+            console.log(slider.sceneAray[1])
+            animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[1]
+            animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0]
             animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
             animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
         }
         else {
-            console.log('pas de mesh')
             getMeshes()
         }
     },800)
@@ -264,9 +264,34 @@ let getMeshes = () => {
 let hourGlassReverse = () =>{
     if (callOnce){
         callOnce=false
-        console.log('ok')
-        animatedMeshes.hourGlassBot.scale.y=0.2
-        animatedMeshes.hourGlassTop.scale.y=1
+        animatedMeshes.hourGlassTop.scale.y=0.06
+        TweenLite.to(
+            animatedMeshes.hourGlassTop.scale,
+            2,
+            {
+                y:1,
+                ease:'Power3.easeInOut'
+            }
+        )
+        TweenLite.to(
+            animatedMeshes.hourGlassBot.scale,
+            2,
+            {
+                y:0.2,
+                ease:'Power3.easeInOut'
+            }
+        )
+        TweenLite.fromTo(
+            slider.sceneAray[1].rotation,
+            2,
+            {
+                z:0
+            },
+            {
+                z:-6.28319,
+                ease:'Power3.easeInOut'
+            }
+        )
         isPlaying=true
         callOnce=true
     }
