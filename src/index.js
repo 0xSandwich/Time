@@ -68,16 +68,13 @@ scene.add(setUp.init())
  * Parallax
  */
 const $cursorParallax = document.querySelectorAll('.parallax')
-console.log($cursorParallax)
 window.addEventListener('mousemove', (_event)=>
 {
-    const ratioX = camera.mouse.x - 0.5
-    const ratioY = camera.mouse.y - 0.5
     $cursorParallax.forEach((_element, _key)=>
     {
-        const strength = _key + 0.5
-        const translateX = -ratioX * 10 * strength
-        const translateY = ratioY * 10 * strength
+        const strength = _key + 0.1
+        const translateX = -camera.mouse.x  * 10 * strength
+        const translateY = camera.mouse.y * 10 * strength
         _element.style.transform = `translateX(${translateX}%) translateY(${translateY}%)`
     })
 })
