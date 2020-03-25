@@ -389,7 +389,7 @@ const loop = () =>
     //Sundial
     if (animatedMeshes.sun && slider.curIndex==0 && isPlaying){
         setUp.sunL.position.x=camera.mouse.x*20
-        animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*3)
+        animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*2.8)
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }
     else if(slider.curIndex==1 && isPlaying) {
