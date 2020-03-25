@@ -141,9 +141,9 @@ let slider = {
             "How does the mechanism of a clock work ?",
             "The operation of a mechanical clock is based on the combination of three elements, a source of energy for the rotational movement, a regulator, and a pendulum gives a precise time reference",
             {
-                r:0.3,
-                g:0.9,
-                b:0.2
+                r:0.12,
+                g:0.55,
+                b:0.06
             }
         ]
     ],
@@ -198,7 +198,7 @@ let slider = {
                 ease:'Power3.easeInOut'
             },
             {
-                y:6.28319,
+                y:+6.28319,
                 ease:'Power3.easeInOut'
             }
         )
@@ -272,11 +272,9 @@ let animatedMeshes={
 let getMeshes = () => {
     setTimeout(function(){
         if(slider.sceneAray[0].children.length == 0) {
-            console.log("No mesh")
             getMeshes()
         }
         else {
-            console.log("Mesh Ok")
             setTimeout(function(){
                 animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
                 animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
