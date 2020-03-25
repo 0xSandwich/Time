@@ -1,11 +1,8 @@
 import * as THREE from 'three'
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 
 let sunDial = {
-    fbxLoader:new FBXLoader(),
     gltfLoader:new GLTFLoader(),
-    // Le groupe dans lequel tous les mesh doivent être ajouter
     sceneGroup:new THREE.Group(),
     init:function(){
         this.gltfLoader.load(

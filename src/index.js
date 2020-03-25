@@ -16,7 +16,8 @@ const guiParams = {
     spotBlur:Math.PI * 0.1,
     spotLPenumbra:1,
     sunLintensity:2,
-    ambiantLIntensity:0.8
+    ambiantLIntensity:0.8,
+    cubHeight:1
 }
 gui.add(guiParams,'spotIntensity',0,5)
 gui.add(guiParams,'spotPosX',-10,10)
@@ -24,7 +25,7 @@ gui.add(guiParams,'spotBlur',0,2)
 gui.add(guiParams,'spotLPenumbra',0,5)
 gui.add(guiParams,'sunLintensity',0,2)
 gui.add(guiParams,'ambiantLIntensity',0,5)
-
+gui.add(guiParams,'cubHeight',0,2)
 
 /**
  * Scene
@@ -183,15 +184,13 @@ let slider = {
             }
         )
         var initial = new THREE.Color(setUp.sunL.color.getHex())
-        console.log(initial)
-        console.log(target)
         TweenLite.to(
             initial,
             3,
             {
-                r:this.sceneData[target][3].r,
-                g:this.sceneData[target][3].g,
-                b:this.sceneData[target][3].b,
+                r:this.sceneData[target][4].r,
+                g:this.sceneData[target][4].g,
+                b:this.sceneData[target][4].b,
             onUpdate:function(){
                 setUp.sunL.color=initial
                 setUp.ambiantL.color=initial
@@ -227,7 +226,6 @@ let slider = {
             this.timeline[i].addEventListener('click',()=>
             {
                 this.goTo(i)
-                console.log(i)
             })
         }
     }
@@ -236,11 +234,11 @@ slider.init()
 
 
 // Animated assets
+let isPlaying = true
 let animatedMeshes={
 }
 setTimeout(function(){
     animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
-    console.log(animatedMeshes.sun)
     animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
 },1000)
 
@@ -259,20 +257,26 @@ document.body.appendChild(renderer.domElement)
  */
 const loop = () =>
 {
-    setUp.spotL
     //Update dat GUI testing variables
     setUp.spotL.intensity=guiParams.spotIntensity
     setUp.spotL.position.x=guiParams.spotPosX
     setUp.spotL.angle=guiParams.spotBlur
     setUp.spotL.penumbra=guiParams.spotLPenumbra
     setUp.ambiantL.intensity=guiParams.ambiantLIntensity
-    
     setUp.sunL.intensity=guiParams.sunLintensity
-    if (animatedMeshes.sun && slider.curIndex==0){
+
+    //Sundial
+    if (animatedMeshes.sun && slider.curIndex==0 && isPlaying){
         setUp.sunL.position.x=camera.mouse.x*20
         animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*3)
-        console.log(animatedMeshes.sun.rotation.x)
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
+    }
+    else if(slider.curIndex==1 && isPlaying) {
+        slider.sceneAray[1].children[0].scale.y+=0.001
+        slider.sceneAray[1].children[1].scale.y-=0.001
+        if(slider.sceneAray[1].children[1].scale.y <= 0.005){
+            isPlaying= false
+        }
     }
     window.requestAnimationFrame(loop)
     // Render
