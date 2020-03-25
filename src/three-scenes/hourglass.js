@@ -5,9 +5,11 @@ let hourGlass = {
     gltfLoader:new GLTFLoader(),
     sceneGroup:new THREE.Group(),
     wrapper:new THREE.Group(),
-    sandMaterial: new THREE.MeshPhysicalMaterial({color:0xfff700,reflectivity:1,roughness:0.8,flatShading:true}),
+    hourGlassWrapper:new THREE.Group(),
+    decoration:new THREE.Group(),
+    sandMaterial: new THREE.MeshPhysicalMaterial({color:0xfff700,reflectivity:1,roughness:0.9,flatShading:true}),
     sandGeometry: new THREE.CylinderGeometry(0.06,0.06,0.2,30,10,false),
-    objectsMaterial: new THREE.MeshPhysicalMaterial({color:0xffffff,reflectivity:1,roughness:0.8,flatShading:true}),
+    objectsMaterial: new THREE.MeshPhysicalMaterial({roughness:0.8,flatShading:true}),
     glassMaterial: new THREE.MeshPhysicalMaterial({color:0xffffff,transparent:true,opacity:0.2}),
 
     // Chargement modèle sablier
@@ -16,19 +18,34 @@ let hourGlass = {
         this.gltfLoader.load(
             'three-models/hourglass/hourglass.gltf',
             (_gltf)=>{
-                let scene = _gltf.scene.children[0]
-                let hourGlassGroup = scene.children[0]
+                this.sceneGroup.name="sceneGroup"
+                this.wrapper.name="wrapper"
+                this.decoration.name="deco"
+                this.hourGlassWrapper.name="hourglasswrapper"
+                let hourGlassGroup = _gltf.scene.children[0].children[0]
                 let hourGlassMesh = hourGlassGroup.children[0]
                 let hourGlassGlass = hourGlassGroup.children[1]
-                scene.position.set(0,-0.1,0)
-                scene.scale.set(0.0013,0.0013,0.0013)
+                hourGlassGroup.position.set(0,0.175,0)
+                hourGlassGroup.scale.set(0.0013,0.0013,0.0013)
+
+                let decor = _gltf.scene.children[0].children[1]
+                decor.position.set(0,-0.075,0)
+                decor.scale.set(0.0013,0.0013,0.0013)
+                decor.traverse(child => {
+                    child.castShadow= true
+                    child.receiveShadow = true
+                    child.material=this.objectsMaterial
+                })
+                this.decoration.add(decor)
 
                 hourGlassGlass.material=this.glassMaterial
                 hourGlassMesh.material = this.objectsMaterial
                 hourGlassMesh.castShadow=true;
                 hourGlassMesh.receiveShadow=true
 
-                this.sceneGroup.add(scene)
+                this.hourGlassWrapper.add(hourGlassGroup)
+
+                this.sceneGroup.add(this.hourGlassWrapper)
             }
         )
 
@@ -42,16 +59,18 @@ let hourGlass = {
         sandTop.position.y=0.2
         sandTop.scale.y=1
 
-        this.sceneGroup.add(sandBot)
-        this.sceneGroup.add(sandTop)
+        this.hourGlassWrapper.add(sandBot)
+        this.hourGlassWrapper.add(sandTop)
+        this.hourGlassWrapper.position.y=-0.2
+        this.sceneGroup.position.y=0.2
+
         this.sceneGroup.traverse((child)=>{
             child.castShadow=true
             child.receiveShadow=true
         })
-        this.sceneGroup.position.set(0,-0.17,0)
         this.wrapper.add(this.sceneGroup)
+        this.wrapper.add(this.decoration)
         console.log(this.wrapper)
-        this.wrapper.position.y=0.17
         return this.wrapper
     }
 }

@@ -266,9 +266,9 @@ let animatedMeshes={
 let getMeshes = () => {
     setTimeout(function(){
         if(slider.sceneAray[0].children.length != 0 && slider.sceneAray[1].length != 0){
-            console.log(slider.sceneAray[1])
-            animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[1]
-            animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0]
+            console.log()
+            animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
+            animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
             animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
             animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
         }
@@ -298,7 +298,7 @@ let hourGlassReverse = () =>{
             }
         )
         TweenLite.fromTo(
-            slider.sceneAray[1].rotation,
+            slider.sceneAray[1].children[0].rotation,
             2,
             {
                 z:0
@@ -314,6 +314,7 @@ let hourGlassReverse = () =>{
 
 }
 getMeshes()
+console.log(slider.sceneAray[1].children[0])
 
 /**
  * Renderer

@@ -1,5 +1,12 @@
 import * as THREE from 'three'
 
+let wallMaterial = new THREE.MeshStandardMaterial({
+    color:0xffffff,
+    roughness:0.8,
+    side:THREE.DoubleSide
+})
+let wallGeometry = new THREE.CylinderGeometry(5,5,0.2,50,10,false)
+
 let setup = {
     walls: new THREE.Group(),
     setupGroup:new THREE.Group(),
@@ -7,34 +14,20 @@ let setup = {
     sunL: new THREE.DirectionalLight(new THREE.Color('hsl(208,100%,74%)'), 0.3),
     spotL: new THREE.SpotLight(0xFFFFFF, 0.4, 0, Math.PI * 0.1, 1),
     ground: new THREE.Mesh(
-        new THREE.CylinderGeometry(5,5,0.2,50,10,false),
-        new THREE.MeshPhongMaterial({
-            color:0xFFFFFF,
-            shininess:100,
-            reflectivity:1,
-            side:THREE.DoubleSide
-        })
+        wallGeometry,
+        wallMaterial
     ),
     wall: new THREE.Mesh(
-        new THREE.CylinderGeometry(5,5,0.2,50,10,false),
-        new THREE.MeshPhongMaterial({
-            color:0xFFFFFF,
-            side:THREE.DoubleSide
-        })
+        wallGeometry,
+        wallMaterial
     ),
     wallL: new THREE.Mesh(
-        new THREE.CylinderGeometry(5,5,0.2,50,10,false),
-        new THREE.MeshPhongMaterial({
-            color:0xFFFfff,
-            side:THREE.DoubleSide
-        })
+        wallGeometry,
+        wallMaterial
     ),
     wallR: new THREE.Mesh(
-        new THREE.CylinderGeometry(5,5,0.2,50,10,false),
-        new THREE.MeshPhongMaterial({
-            color:0xFFFfff,
-            side:THREE.DoubleSide
-        })
+        wallGeometry,
+        wallMaterial
     )
     ,
     init:function(){
