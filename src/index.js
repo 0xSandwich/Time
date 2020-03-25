@@ -90,9 +90,10 @@ let slider = {
     ],
     sceneData:[
         [
-            "Le cadran solaire",
-            "le cadran ect ect ect",
-            "Bouger la souris sur l'écran pour faire bouger le soleil",
+            "Sundial",
+            "Sundials are the oldest known devices that are used to measure time. It depends on the rotation and movement of the sun. As the sun moves from east to west, the shadows formed predict the time of the day. The Egyptians were the first to use the sundials. They used a stick or pillar called the gnomon. Time was calculated depending on the length of the shadow.",
+            "What should we put the sundial on ?",
+            "Whether it's a pedestal, a low wall, a water basin, on the patio, on a flowerpot, it can be used for anything. You can let your imagination run wild.",
             {
                 r:0.48,
                 g:0.757,
@@ -100,9 +101,10 @@ let slider = {
             }
         ],
         [
-            "Sablier",
-            "le sablier ect ect ect",
-            " cliquez pour retourner le sablier",
+            "Hourglass",
+            "Its predecessor the clepsydra, is known to have existed in Babylon and Egypt as early as the 16th century BCE. The hourglass first appeared in Europe in the eighth century, and may have been made by Luitprand, a monk at the cathedral in Chartres, France. It appears to have been widely used throughout Western Europe from that time through 1500.",
+            "What's the difference between a clepsydra and an hourglass ?",
+            "The clepsydra measures the flow of water, and the hourglass measures the flow of sand.",
             {
                 r:0.8,
                 g:0.5,
@@ -110,9 +112,10 @@ let slider = {
             }
         ],
         [
-            "Pendule",
-            "le pendule ect ect ect",
-            "remontez le pendule pour ect ect ect",
+            "Pendulum",
+            "One of the earliest known uses of a pendulum was a 1st-century seismometer device of Han Dynasty Chinese scientist Zhang Heng. Italian scientist Galileo Galilei was the first to study the properties of pendulums, beginning around 1602. Galileo discovered the crucial property that makes pendulums useful as timekeepers, called isochronism.",
+            "How does the mechanism of a clock work ?",
+            "The operation of a mechanical clock is based on the combination of three elements, a source of energy for the rotational movement, a regulator, and a pendulum gives a precise time reference",
             {
                 r:0.3,
                 g:0.9,
