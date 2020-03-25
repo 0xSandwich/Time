@@ -13,11 +13,11 @@ let sunDial = {
             (_gltf)=>{
                 let scene = _gltf.scene.children[0]
                 let sun = scene.children[0].children[1]
-                sun.children[0].material=new THREE.MeshBasicMaterial({color:0xfcba03})
+                sun.children[0].material=new THREE.MeshBasicMaterial({color:0xffffff})
                 scene.position.set(0,-0.1,0)
                 scene.scale.set(0.005,0.005,0.005)
                 scene.children[1].traverse((child)=>{
-                    child.material=new THREE.MeshPhysicalMaterial({reflectivity:2})
+                    child.material=new THREE.MeshPhysicalMaterial({reflectivity:1,roughness:0.8,flatShading:true})
                     child.castShadow=true
                     child.receiveShadow=true
                 })

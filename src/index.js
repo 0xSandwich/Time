@@ -14,14 +14,14 @@ const guiParams = {
     spotPosX:0,
     spotIntensity:5,
     spotBlur:Math.PI * 0.1,
-    sunLX:-2,
+    spotLPenumbra:1,
     sunLintensity:2,
     ambiantLIntensity:0.8
 }
 gui.add(guiParams,'spotIntensity',0,5)
 gui.add(guiParams,'spotPosX',-10,10)
 gui.add(guiParams,'spotBlur',0,2)
-gui.add(guiParams,'sunLX',-10,10)
+gui.add(guiParams,'spotLPenumbra',0,5)
 gui.add(guiParams,'sunLintensity',0,2)
 gui.add(guiParams,'ambiantLIntensity',0,5)
 
@@ -258,6 +258,7 @@ const loop = () =>
     setUp.spotL.intensity=guiParams.spotIntensity
     setUp.spotL.position.x=guiParams.spotPosX
     setUp.spotL.angle=guiParams.spotBlur
+    setUp.spotL.penumbra=guiParams.spotLPenumbra
     setUp.ambiantL.intensity=guiParams.ambiantLIntensity
     
     setUp.sunL.intensity=guiParams.sunLintensity
@@ -265,7 +266,7 @@ const loop = () =>
         setUp.sunL.position.x=camera.mouse.x*20
         animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*3)
         console.log(animatedMeshes.sun.rotation.x)
-        animatedMeshes.clouds.position.x=-((camera.mouse.x)*600)
+        animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }
     window.requestAnimationFrame(loop)
     // Render
