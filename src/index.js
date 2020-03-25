@@ -135,7 +135,6 @@ let slider = {
 
     setInfo : function() {
         this.sceneInfoDom.map((element , index) => {
-            console.log(element.innerHTML)
             element.innerHTML=this.sceneData[this.curIndex][index]
         })
     },
@@ -169,19 +168,27 @@ let slider = {
                 ease:'Power3.easeInOut'
             }
         )
-        TweenLite.to(
+        TweenLite.fromTo(
             setUp.walls.rotation,
             2,
             {
-                y:setUp.walls.rotation.y+6.28319,
+                y:0,
+                ease:'Power3.easeInOut'
+            },
+            {
+                y:6.28319,
                 ease:'Power3.easeInOut'
             }
         )
-        TweenLite.to(
+        TweenLite.fromTo(
             this.containerAray[this.curIndex].group.rotation,
             2,
             {
-                x:this.containerAray[this.curIndex].group.rotation.x-6.28319,
+                x:0,
+                ease:'Power3.easeInOut'
+            },
+            {
+                x:-6.28319,
                 ease:'Power3.easeInOut'
             }
         )
@@ -237,6 +244,7 @@ slider.init()
 
 // Animated assets
 let isPlaying = true
+let callOnce = true
 let animatedMeshes={
 }
 let getMeshes = () => {
@@ -252,6 +260,17 @@ let getMeshes = () => {
             getMeshes()
         }
     },800)
+}
+let hourGlassReverse = () =>{
+    if (callOnce){
+        callOnce=false
+        console.log('ok')
+        animatedMeshes.hourGlassBot.scale.y=0.2
+        animatedMeshes.hourGlassTop.scale.y=1
+        isPlaying=true
+        callOnce=true
+    }
+
 }
 getMeshes()
 
@@ -285,10 +304,11 @@ const loop = () =>
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }
     else if(slider.curIndex==1 && isPlaying) {
-        animatedMeshes.hourGlassBot.scale.y+=0.001
-        animatedMeshes.hourGlassTop.scale.y-=0.001
-        if(animatedMeshes.hourGlassBot.scale.y <= 0.005){
+        animatedMeshes.hourGlassBot.scale.y+=0.003
+        animatedMeshes.hourGlassTop.scale.y-=0.003
+        if(animatedMeshes.hourGlassTop.scale.y <= 0.05){
             isPlaying= false
+            hourGlassReverse()
         }
     }
     window.requestAnimationFrame(loop)
