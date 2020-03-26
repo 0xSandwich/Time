@@ -1,5 +1,6 @@
 import './style/main.styl'
 import songAudio from './audios/one.mp3'
+import whoshAudio from './audios/whoosh.mp3'
 import * as THREE from 'three'
 import camera from './three-required/camera.js'
 import setUp from './three-scenes/setup.js'
@@ -119,6 +120,7 @@ let slider = {
         
     ],
     song : [new Audio(songAudio)],
+    whoosh: [new Audio(whoshAudio)],
     volume : document.querySelectorAll('.song-volume img'),
     timeline : [
         document.querySelector('.date.sundial'),
@@ -287,6 +289,7 @@ let slider = {
         let checked = 0
         const btnNext = document.querySelector('#next-btn')
         btnNext.addEventListener('click',()=>{
+            this.whoosh[0].play()
             this.goTo(this.curIndex+1)
 
             this.timeline[this.curIndex].style.opacity = 1
