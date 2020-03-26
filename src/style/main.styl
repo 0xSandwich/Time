@@ -69,7 +69,6 @@ body
         color white
         font-size 1.5em
         letter-spacing 0.2em
-        cursor pointer
 
     .title-home #start-container div.line
         position absolute
@@ -77,7 +76,6 @@ body
         background-color white
         height 2px
         width 2px
-        cursor pointer
         opacity 0
 
         transition transform 0.7s ease-in-out
@@ -158,7 +156,7 @@ body
     position absolute
     z-index 1
     top 3%
-    left 2%
+    left 3%
 
 .song-volume img 
     width 20px
@@ -169,7 +167,6 @@ body
 
 .song-volume img#mute
     opacity 0
-    cursor pointer
 
 
 //TIMELINE
@@ -177,8 +174,7 @@ body
 #timeline
     position absolute
     width 360px
-    height 150px
-    top 90%
+    bottom: 5%
     left calc(50% - 175px)
     z-index 1
     
@@ -201,7 +197,6 @@ body
         
 
     #dates .date
-        cursor pointer
         &:hover .text-description p
             color #577FA2
 
@@ -284,20 +279,19 @@ body
     transform: translateX(0%)
     box-sizing: border-box
     position: absolute
-    width: 400px
-    right: 20px
+    width: 450px
+    right: 40px
     top 20%
     z-index 1
     font-family 'avenirBook'
     backdrop-filter: blur(20px)
     transition: all 0.8s ease-in-out
     #button-next-prev
-        display: flex
         #next-btn
-            
+            position: absolute
+            right 0
             color white
             padding 15px
-            cursor pointer
             width 50%
             #next-btn-text
                 color white 
@@ -310,10 +304,10 @@ body
                 width: 7.6vw
                 height: 0.3vh
         #prev-btn
-            
+            position: absolute
+            left 0
             color white
             padding 15px
-            cursor pointer
             width 50%
             #prev-btn-text
                 color white 
@@ -359,9 +353,8 @@ body
     width fit-content
     left:50%
     transform: translateX(-50%)
-    top:10%
+    top:3%;
     transition: all 0.8s ease-in-out
     p 
         color white
         font-family 'avenirBook'
-        cursor pointer

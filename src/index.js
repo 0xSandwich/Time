@@ -1,6 +1,7 @@
 import './style/main.styl'
 import songAudio from './audios/one.mp3'
 import whoshAudio from './audios/whoosh.mp3'
+import cuckooAudio from './audios/cuckoo.mp3'
 import * as THREE from 'three'
 import camera from './three-required/camera.js'
 import setUp from './three-scenes/setup.js'
@@ -103,6 +104,8 @@ const cursor = document.querySelector('.cursor')
  * Objects
  */
 let slider = {
+    btnNext:document.querySelector('#next-btn'),
+    btnPrev:document.querySelector('#prev-btn'),
     curIndex:0,
     containerAray:[],
     sceneAray:[sunDial.init(),hourGlass.init(),clock.init()],
@@ -121,6 +124,7 @@ let slider = {
     ],
     song : [new Audio(songAudio)],
     whoosh: [new Audio(whoshAudio)],
+    cuckoo:[new Audio(cuckooAudio)],
     volume : document.querySelectorAll('.song-volume img'),
     timeline : [
         document.querySelector('.date.sundial'),
@@ -181,6 +185,10 @@ let slider = {
         this.infoDOM.classList.add('info-hidden')
         this.interactDOM.classList.add("faded")
         setTimeout(()=>{
+            this.btnPrev.style.display="block"
+            if(this.curIndex==0){
+                this.btnPrev.style.display="none"
+            }
             this.interactDOM.innerHTML=this.sceneInteract[this.curIndex]
             this.sceneInfoDom.map((element , index) => {
                 element.innerHTML=this.sceneData[this.curIndex][index]
@@ -231,7 +239,8 @@ let slider = {
         })
     },
     goTo: function(target) {
-        if(target>=this.containerAray.length){
+        this.whoosh[0].play()
+        if(target>=this.containerAray.length || target<0){
             target=0
         }
         TweenLite.to(
@@ -287,10 +296,25 @@ let slider = {
     },
     handleNext:function(){
         let checked = 0
-        const btnNext = document.querySelector('#next-btn')
-        btnNext.addEventListener('click',()=>{
-            this.whoosh[0].play()
+        this.btnNext.addEventListener('click',()=>{
             this.goTo(this.curIndex+1)
+
+            this.timeline[this.curIndex].style.opacity = 1
+            this.timeline[this.curIndex].style.pointerEvents = 'auto'
+
+            if(this.curIndex+1==2 && checked==0)
+            {
+                this.timeline[3].style.transform = 'scaleX(175)'
+                checked = 1
+            }
+            else if (this.curIndex==2)
+            {
+                this.timeline[3].style.transform = 'scaleX(350)'
+            }
+        }, false)
+        this.btnPrev.addEventListener('click',()=>{
+            this.whoosh[0].play()
+            this.goTo(this.curIndex-1)
 
             this.timeline[this.curIndex].style.opacity = 1
             this.timeline[this.curIndex].style.pointerEvents = 'auto'
@@ -381,7 +405,7 @@ const raycaster = new THREE.Raycaster()
 let hoverClock = false
 document.addEventListener('click',()=>{
     if (hoverClock){
-        console.log('ok')
+        slider.cuckoo[0].play()
     }
 })
 

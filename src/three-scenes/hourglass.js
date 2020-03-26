@@ -25,7 +25,7 @@ let hourGlass = {
                 let hourGlassGroup = _gltf.scene.children[0].children[0]
                 let hourGlassMesh = hourGlassGroup.children[0]
                 let hourGlassGlass = hourGlassGroup.children[1]
-                hourGlassGroup.position.set(0,0.175,0)
+                hourGlassGroup.position.set(0,0.165,0)
                 hourGlassGroup.scale.set(0.0013,0.0013,0.0013)
 
                 let decor = _gltf.scene.children[0].children[1]
