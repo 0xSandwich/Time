@@ -356,8 +356,8 @@ let getMeshes = () => {
     console.log("Chargement en cours...")
     animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
     animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
-    animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
-    animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
+    animatedMeshes.sun = slider.sceneAray[0].children[0].children[1].children[1]
+    animatedMeshes.clouds = slider.sceneAray[0].children[0].children[1].children[0]
     animatedMeshes.clock = slider.sceneAray[2].children[0].children[0].children[1]
 }
 
@@ -496,7 +496,7 @@ const loop = () =>
     //Sundial
     if (animatedMeshes.sun && slider.curIndex==0){
         setUp.sunL.position.x=camera.mouse.x*20
-        animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*2.8)
+        animatedMeshes.sun.rotation.y=-(((camera.mouse.x+1)/2)*2.8)
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }
     else if(slider.curIndex==1) {
