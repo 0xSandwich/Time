@@ -6,7 +6,7 @@ import {TimelineLite} from 'gsap/all'
 let clock = {
     gltfLoader:new GLTFLoader(),
     sceneGroup:new THREE.Group(),
-    objectMaterial: new THREE.MeshPhysicalMaterial({color:0x30ffac,reflectivity:1,roughness:0.9}),
+    objectMaterial: new THREE.MeshPhysicalMaterial({color:0xbf63be,roughness:0.9}),
     decoMaterial:new THREE.MeshPhysicalMaterial({roughness:0.8,flatShading:true}),
     init:function(){
         this.gltfLoader.load(

@@ -2,7 +2,7 @@ import * as THREE from 'three'
 
 let wallMaterial = new THREE.MeshStandardMaterial({
     color:0xffffff,
-    roughness:0,
+    roughness:0.6,
     side:THREE.DoubleSide
 })
 let wallGeometry = new THREE.CylinderGeometry(5,5,0.2,50,10,false)

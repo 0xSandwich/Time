@@ -12,23 +12,24 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 import {TweenLite} from 'gsap/all'
 import * as dat from 'dat.gui';
 
-const gui = new dat.GUI();
-const guiParams = {
+const sceneSettings = {
     spotPosX:-1.6,
     spotIntensity:4.6,
     spotBlur:Math.PI * 0.1,
     spotLPenumbra:1,
     sunLintensity:1,
     ambiantLIntensity:0.8,
-    cubHeight:1
+    set:function(){
+        setUp.spotL.intensity=this.spotIntensity
+        setUp.spotL.position.x=this.spotPosX
+        setUp.spotL.angle=this.spotBlur
+        setUp.spotL.penumbra=this.spotLPenumbra
+        setUp.ambiantL.intensity=this.ambiantLIntensity
+        setUp.sunL.intensity=this.sunLintensity
+    }
 }
-gui.add(guiParams,'spotIntensity',0,5)
-gui.add(guiParams,'spotPosX',-10,10)
-gui.add(guiParams,'spotBlur',0,2)
-gui.add(guiParams,'spotLPenumbra',0,5)
-gui.add(guiParams,'sunLintensity',0,2)
-gui.add(guiParams,'ambiantLIntensity',0,5)
-gui.add(guiParams,'cubHeight',0,2)
+sceneSettings.set()
+
 
 /**
  * Scene
@@ -147,9 +148,9 @@ let slider = {
             "How does the mechanism of a clock work ?",
             "The operation of a mechanical clock is based on the combination of three elements, a source of energy for the rotational movement, a regulator, and a pendulum gives a precise time reference",
             {
-                r:0.12,
-                g:0.55,
-                b:0.06
+                r:1,
+                g:0.43,
+                b:0.79
             }
         ]
     ],
@@ -391,43 +392,11 @@ let composer = new EffectComposer( renderer );
 composer.addPass( renderScene );
 composer.addPass( bloomPass );
 
-gui.add( params, 'exposure', 0.1, 2 ).onChange( function ( value ) {
-
-    renderer.toneMappingExposure = Math.pow( value, 4.0 );
-
-} );
-
-gui.add( params, 'bloomThreshold', 0.0, 1.0 ).onChange( function ( value ) {
-
-    bloomPass.threshold = Number( value );
-
-} );
-
-gui.add( params, 'bloomStrength', 0.0, 3.0 ).onChange( function ( value ) {
-
-    bloomPass.strength = Number( value );
-
-} );
-
-gui.add( params, 'bloomRadius', 0.0, 1.0 ).step( 0.01 ).onChange( function ( value ) {
-
-    bloomPass.radius = Number( value );
-
-} );
-
 /**
  * Loop
  */
 const loop = () =>
 {
-    //Update dat GUI testing variables
-    setUp.spotL.intensity=guiParams.spotIntensity
-    setUp.spotL.position.x=guiParams.spotPosX
-    setUp.spotL.angle=guiParams.spotBlur
-    setUp.spotL.penumbra=guiParams.spotLPenumbra
-    setUp.ambiantL.intensity=guiParams.ambiantLIntensity
-    setUp.sunL.intensity=guiParams.sunLintensity
-
     //Sundial
     if (animatedMeshes.sun && slider.curIndex==0 && isPlaying){
         setUp.sunL.position.x=camera.mouse.x*20
