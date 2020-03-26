@@ -72,6 +72,16 @@ module.exports = {
                         options: { outputPath: 'fonts/' }
                     }
                 ]
+            },
+            {
+                test: /\.(mp3|ogg)$/,
+                use:
+                [
+                    {
+                        loader: 'file-loader',
+                        options: { outputPath: 'audios/' }
+                    }
+                ]
             }
         ]
     }

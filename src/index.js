@@ -1,4 +1,5 @@
 import './style/main.styl'
+import songAudio from './audios/one.mp3'
 import * as THREE from 'three'
 import camera from './three-required/camera.js'
 import setUp from './three-scenes/setup.js'
@@ -117,6 +118,7 @@ let slider = {
         document.querySelector('.home')
         
     ],
+    song : [new Audio(songAudio)],
     timeline : [
         document.querySelector('.date.sundial'),
         document.querySelector('.date.hourglass'),
@@ -199,6 +201,8 @@ let slider = {
 
         this.startInit[0].addEventListener('click', () => 
         {
+            this.song[0].play()
+            this.song[0].loop = true
             this.startInit[1].style.animationPlayState = 'running'
             this.startInit[2].style.opacity = 0
             this.startInit[2].style.pointerEvents = 'none'           
