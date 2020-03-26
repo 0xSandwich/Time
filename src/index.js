@@ -229,12 +229,16 @@ let slider = {
                 this.volume[0].style.opacity = 0
                 this.volume[1].style.opacity = 1
                 this.song[0].pause()
+                this.whoosh[0].volume=0
+                this.cuckoo[0].volume=0
             }
             else
             {
                 this.volume[1].style.opacity = 0
                 this.volume[0].style.opacity = 1
                 this.song[0].play()
+                this.whoosh[0].volume=0.8
+                this.cuckoo[0].volume=1
             }
         })
     },
