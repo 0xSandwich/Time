@@ -152,6 +152,7 @@ body
     left calc(50% - 175px)
     z-index 1
     
+    
 
     #line
         //width 350px
@@ -167,12 +168,13 @@ body
     #dates
         display flex 
         justify-content space-between
+        
 
     #dates .date
         cursor pointer
 
-    #dates .date.candle,
-    #dates .date.pendulum
+    #dates .date.hourglass,
+    #dates .date.pendulum-clock
         opacity 0
         pointer-events none
         transition opacity 2s ease-out
@@ -181,13 +183,13 @@ body
         position absolute 
         transform translateX(-20px) translateY(-60px)
 
-    #dates .date.candle .text-description
+    #dates .date.hourglass .text-description
         position absolute 
         transform translateX(-29px) translateY(-60px)
 
-    #dates .date.pendulum .text-description
+    #dates .date.pendulum-clock .text-description
         position absolute 
-        transform translateX(-27px) translateY(-60px)
+        transform translateX(-18px) translateY(-60px)
 
     #dates .date .text-description p
         text-transform uppercase
@@ -196,6 +198,7 @@ body
         letter-spacing 0.15em
         text-align center
         font-size 0.8em
+        
 
     #dates .date .circle
         width 16px
@@ -203,7 +206,8 @@ body
         border-radius 50%
         background-color white
         will-change transform 
-        transition transform 0.4s ease-in-out
+        transition transform 0.5s ease-out
+        box-shadow 5px 5px 25px 
 
         &:hover
             transform scaleX(1.2) scaleY(1.2)

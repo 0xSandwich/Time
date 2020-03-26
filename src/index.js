@@ -109,8 +109,8 @@ let slider = {
     ],
     timeline : [
         document.querySelector('.date.sundial'),
-        document.querySelector('.date.candle'),
-        document.querySelector('.date.pendulum'),
+        document.querySelector('.date.hourglass'),
+        document.querySelector('.date.pendulum-clock'),
         document.querySelector('#line')
     ],
     sceneInfoDom:[
