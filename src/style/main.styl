@@ -172,6 +172,8 @@ body
 
     #dates .date
         cursor pointer
+        &:hover .text-description p
+            color #577FA2
 
     #dates .date.hourglass,
     #dates .date.pendulum-clock
@@ -198,8 +200,8 @@ body
         letter-spacing 0.15em
         text-align center
         font-size 0.8em
+        transition 0.5s color ease-out
         
-
     #dates .date .circle
         width 16px
         height 16px
@@ -207,7 +209,7 @@ body
         background-color white
         will-change transform 
         transition transform 0.5s ease-out
-        box-shadow 5px 5px 25px 
+        box-shadow 2px 2px 1px rgba(0, 0, 0, 0.3)
 
         &:hover
             transform scaleX(1.2) scaleY(1.2)
