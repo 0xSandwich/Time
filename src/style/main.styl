@@ -18,7 +18,18 @@
     --dark-color #192a65
 body 
     overflow hidden
-    
+    cursor none
+
+.cursor 
+    width 55px
+    height 55px
+    border-radius 50%
+    background rgba(255,255,255,0.4)
+    position absolute
+    transform translate(-50%, -50%)
+    pointer-events none
+    z-index 100
+
 // 
 //HOME 
 //
@@ -172,6 +183,8 @@ body
 
     #dates .date
         cursor pointer
+        &:hover .text-description p
+            color #577FA2
 
     #dates .date.hourglass,
     #dates .date.pendulum-clock
@@ -198,8 +211,8 @@ body
         letter-spacing 0.15em
         text-align center
         font-size 0.8em
+        transition 0.5s color ease-out
         
-
     #dates .date .circle
         width 16px
         height 16px
@@ -207,7 +220,7 @@ body
         background-color white
         will-change transform 
         transition transform 0.5s ease-out
-        box-shadow 5px 5px 25px 
+        box-shadow 2px 2px 1px rgba(0, 0, 0, 0.3)
 
         &:hover
             transform scaleX(1.2) scaleY(1.2)
@@ -259,21 +272,40 @@ body
     font-family 'avenirBook'
     backdrop-filter: blur(20px)
     transition: all 0.8s ease-in-out
-    
-    #next-btn
-        color white
-        padding 15px
-        cursor pointer
-        #next-btn-text
-            color white 
-            font-size 0.9em 
-            width: 100%
-            text-align right
-        #underLine
-            margin-left: auto
-            background: white
-            width: 7.6vw
-            height: 0.3vh
+    #button-next-prev
+        display: flex
+        #next-btn
+            
+            color white
+            padding 15px
+            cursor pointer
+            width 50%
+            #next-btn-text
+                color white 
+                font-size 0.9em 
+                width: 100%
+                text-align right
+            #underLine-next
+                margin-left: auto
+                background: white
+                width: 7.6vw
+                height: 0.3vh
+        #prev-btn
+            
+            color white
+            padding 15px
+            cursor pointer
+            width 50%
+            #prev-btn-text
+                color white 
+                font-size 0.9em 
+                width: 100%
+                text-align left
+            #underLine-prev
+                margin-right auto
+                background: white
+                width: 7.6vw
+                height: 0.3vh
     #title
         padding: 0
         margin: 5%
