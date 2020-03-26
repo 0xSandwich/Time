@@ -296,6 +296,7 @@ let getMeshes = () => {
                 animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
                 animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
                 animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
+                animatedMeshes.clock = slider.sceneAray[2].children[0].children[0].children[1]
             },200)
         }
     },200)
@@ -337,6 +338,15 @@ let hourGlassReverse = () =>{
 
 }
 getMeshes()
+
+//Raycaster clock
+const raycaster = new THREE.Raycaster()
+let hoverClock = false
+document.addEventListener('click',()=>{
+    if (hoverClock){
+        console.log('ok')
+    }
+})
 
 // Interactions
 slider.interactDOM.addEventListener('click',() =>{
@@ -411,6 +421,18 @@ const loop = () =>
             hourGlassReverse()
         }
     }
+    else if (slider.curIndex==2){
+        raycaster.setFromCamera(camera.mouse,camera.camera)
+        const intersects = raycaster.intersectObject(animatedMeshes.clock, true)
+        if(intersects.length){
+            hoverClock=true
+        }
+        else{
+            hoverClock = false
+        }
+    }
+
+
     window.requestAnimationFrame(loop)
     // Render
     composer.render();
