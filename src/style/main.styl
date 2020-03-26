@@ -151,8 +151,27 @@ body
         border-radius 50%
         background-color rgba(255, 255, 255, 0.05)
 
+//
+//VOLUME
+//
+.song-volume
+    position absolute
+    z-index 1
+    top 3%
+    left 2%
 
-// 
+.song-volume img 
+    width 20px
+    height auto
+    position absolute
+    will-change opacity
+    transition opacity 0.3s ease-in
+
+.song-volume img#mute
+    opacity 0
+    cursor pointer
+
+
 //TIMELINE
 //
 #timeline

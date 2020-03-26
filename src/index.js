@@ -119,6 +119,7 @@ let slider = {
         
     ],
     song : [new Audio(songAudio)],
+    volume : document.querySelectorAll('.song-volume img'),
     timeline : [
         document.querySelector('.date.sundial'),
         document.querySelector('.date.hourglass'),
@@ -198,6 +199,7 @@ let slider = {
         }
         this.handleNext()
         this.setInfo()
+        this.setMute()
 
         this.startInit[0].addEventListener('click', () => 
         {
@@ -206,6 +208,24 @@ let slider = {
             this.startInit[1].style.animationPlayState = 'running'
             this.startInit[2].style.opacity = 0
             this.startInit[2].style.pointerEvents = 'none'           
+        })
+    },
+    setMute : function(){
+        this.volume[1].addEventListener('click', ()=>
+        {
+            
+            if(this.volume[1].style.opacity == 0)
+            {
+                this.volume[0].style.opacity = 0
+                this.volume[1].style.opacity = 1
+                this.song[0].pause()
+            }
+            else
+            {
+                this.volume[1].style.opacity = 0
+                this.volume[0].style.opacity = 1
+                this.song[0].play()
+            }
         })
     },
     goTo: function(target) {
