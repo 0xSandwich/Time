@@ -112,9 +112,9 @@ let slider = {
     interactDOM:document.querySelector('#interaction'),
     infoDOM:document.querySelector('#info'),
     sceneInteract:[
-        "<p>Move your mouse across the window to move thun sun</p>",
-        "<p>Click here to turn the hourglass</p>",
-        "<p>Click here to learn more about the mechanism</p>"
+        "<p>Move your mouse across the window to move thun sun !</p>",
+        "<p>Click on the hourglass to flip it !</p>",
+        "<p>Click on the clock and wait !</p>"
     ],
     startInit : [
         document.querySelector('#start'),
@@ -400,17 +400,21 @@ let hourGlassReverse = () =>{
 }
 getMeshes()
 
-//Raycaster clock
+//Raycaster
 const raycaster = new THREE.Raycaster()
 let hoverClock = false
+let hourglassFlip = false
 document.addEventListener('click',()=>{
     if (hoverClock){
         slider.cuckoo[0].play()
     }
+    else if(hourglassFlip){
+        interactDOMFunction()
+    }
 })
 
 // Interactions
-slider.interactDOM.addEventListener('click',() =>{
+let interactDOMFunction = () =>{
     switch (slider.curIndex) {
         case 0:
             break;
@@ -436,6 +440,9 @@ slider.interactDOM.addEventListener('click',() =>{
         case 2:
             break;
     }
+}
+slider.interactDOM.addEventListener('click',() =>{
+    interactDOMFunction()
 })
 
 /**
@@ -474,18 +481,28 @@ const loop = () =>
         animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*2.8)
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }
-    else if(slider.curIndex==1 && isPlaying) {
-        animatedMeshes.hourGlassBot.scale.y+=0.001
-        animatedMeshes.hourGlassTop.scale.y-=0.001
-        if(animatedMeshes.hourGlassTop.scale.y <= 0.05){
-            isPlaying= false
-            hourGlassReverse()
+    else if(slider.curIndex==1) {
+        raycaster.setFromCamera(camera.mouse,camera.camera)
+        const intersectsClock = raycaster.intersectObject(slider.sceneAray[1].children[0], true)
+        if(intersectsClock.length){
+            hourglassFlip=true
+        }
+        else{
+            hourglassFlip=false
+        }
+        if(isPlaying){
+            animatedMeshes.hourGlassBot.scale.y+=0.001
+            animatedMeshes.hourGlassTop.scale.y-=0.001
+            if(animatedMeshes.hourGlassTop.scale.y <= 0.05){
+                isPlaying= false
+                
+            }
         }
     }
     else if (slider.curIndex==2){
         raycaster.setFromCamera(camera.mouse,camera.camera)
-        const intersects = raycaster.intersectObject(animatedMeshes.clock, true)
-        if(intersects.length){
+        const intersectsClock = raycaster.intersectObject(animatedMeshes.clock, true)
+        if(intersectsClock.length){
             hoverClock=true
         }
         else{
