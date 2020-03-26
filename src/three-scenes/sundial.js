@@ -7,7 +7,7 @@ let sunDial = {
     sceneGroup:new THREE.Group(),
     dracoLoader : new DRACOLoader(),
     init:function(){
-        this.dracoLoader.setDecoderPath('/draco/')
+        this.dracoLoader.setDecoderPath('/three-models/draco/')
         this.gltfLoader.setDRACOLoader(this.dracoLoader)
         this.gltfLoader.load(
             'three-models/sundial/sundialdraco.gltf',
