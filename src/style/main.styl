@@ -233,12 +233,20 @@ body
             border-radius 50%
             background-color white
         
-
-
+.info-hidden
+    transform: translateX(100%) !important
+    opacity :0 !important
+    transition: all 0.8s ease-in-out
+.faded
+    opacity :0 !important
+    transition: all 0.8s ease-in-out
 //
 // INFO OF MUSEUM
 //
 #info
+    opacity 1
+    transform: translateX(0%)
+    box-sizing: border-box
     position: absolute
     width: 400px
     right: 20px
@@ -246,6 +254,7 @@ body
     z-index 1
     font-family 'avenirBook'
     backdrop-filter: blur(20px)
+    transition: all 0.8s ease-in-out
     
     #next-btn
         color white
@@ -289,3 +298,15 @@ body
             line-height: 1.5
             padding: 0
             margin: 5%
+
+#interaction
+    position: absolute
+    width fit-content
+    left:50%
+    transform: translateX(-50%)
+    top:10%
+    transition: all 0.8s ease-in-out
+    p 
+        color white
+        font-family 'avenirBook'
+        cursor pointer

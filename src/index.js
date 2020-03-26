@@ -93,6 +93,13 @@ let slider = {
     curIndex:0,
     containerAray:[],
     sceneAray:[sunDial.init(),hourGlass.init(),clock.init()],
+    interactDOM:document.querySelector('#interaction'),
+    infoDOM:document.querySelector('#info'),
+    sceneInteract:[
+        "<p>Move your mouse across the window to move thun sun</p>",
+        "<p>Click here to turn the hourglass</p>",
+        "<p>Click here to learn more about the mechanism</p>"
+    ],
     startInit : [
         document.querySelector('#start'),
         document.querySelector('.hours'),
@@ -110,7 +117,6 @@ let slider = {
         document.querySelector('#description'),
         document.querySelector('#question'),
         document.querySelector('#answer')
-
     ],
     sceneData:[
         [
@@ -156,9 +162,18 @@ let slider = {
     },
 
     setInfo : function() {
-        this.sceneInfoDom.map((element , index) => {
-            element.innerHTML=this.sceneData[this.curIndex][index]
-        })
+        this.infoDOM.classList.add('info-hidden')
+        this.interactDOM.classList.add("faded")
+        setTimeout(()=>{
+            this.interactDOM.innerHTML=this.sceneInteract[this.curIndex]
+            this.sceneInfoDom.map((element , index) => {
+                element.innerHTML=this.sceneData[this.curIndex][index]
+            })
+            this.infoDOM.classList.remove('info-hidden')
+            this.interactDOM.classList.remove("faded")
+        },
+        800)
+
     },
     init : function() {
         camera.init()
@@ -322,6 +337,35 @@ let hourGlassReverse = () =>{
 }
 getMeshes()
 
+// Interactions
+slider.interactDOM.addEventListener('click',() =>{
+    switch (slider.curIndex) {
+        case 0:
+            break;
+        case 1:
+            TweenLite.to(
+                animatedMeshes.hourGlassBot.scale,
+                1,
+                {
+                    y:1,
+                    ease:'Power3.easeInOut'
+                }
+            )
+            TweenLite.to(
+                animatedMeshes.hourGlassTop.scale,
+                1,
+                {
+                    y:0.06,
+                    ease:'Power3.easeInOut',
+                    onComplete:hourGlassReverse
+                }
+            )
+            break;
+        case 2:
+            break;
+    }
+})
+
 /**
  * Renderer
  */
@@ -391,8 +435,8 @@ const loop = () =>
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }
     else if(slider.curIndex==1 && isPlaying) {
-        animatedMeshes.hourGlassBot.scale.y+=0.003
-        animatedMeshes.hourGlassTop.scale.y-=0.003
+        animatedMeshes.hourGlassBot.scale.y+=0.001
+        animatedMeshes.hourGlassTop.scale.y-=0.001
         if(animatedMeshes.hourGlassTop.scale.y <= 0.05){
             isPlaying= false
             hourGlassReverse()

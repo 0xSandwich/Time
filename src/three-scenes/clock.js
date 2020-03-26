@@ -13,7 +13,6 @@ let clock = {
             'three-models/clock/clock.gltf',
             (_gltf)=>{
                 let scene = _gltf.scene.children[0]
-                console.log(scene)
                 scene.position.set(0,-0.1,0)
                 scene.scale.set(0.005,0.005,0.005)
 
@@ -25,20 +24,32 @@ let clock = {
                     })
                 }
                 scene.children[0].children[1].material = this.objectMaterial
-
+                console.log(scene)
                 let massTl = new TimelineLite({
                     onComplete: function() {
                       this.restart();
                     }
-                  }).fromTo(scene.children[1].children[3].rotation,1,{z:3.5,ease:'Power3.easeInOut'},{z:2.7,ease:'Power3.easeInOut'})
-                  .fromTo(scene.children[1].children[3].rotation,1,{z:2.7,ease:'Power3.easeInOut'},{z:3.5,ease:'Power3.easeInOut'})
-                this.sceneGroup.add(scene)
+                  }).fromTo(scene.children[1].children[3].rotation,1,{z:3.4,ease:'Power3.easeInOut'},{z:2.8,ease:'Power3.easeInOut'})
+                  .fromTo(scene.children[1].children[3].rotation,1,{z:2.8,ease:'Power3.easeInOut'},{z:3.4,ease:'Power3.easeInOut'})
 
                 let marrowTl = new TimelineLite({
                     onComplete: function() {
                       this.restart();
                     }
                   }).fromTo(scene.children[1].children[2].rotation,60,{z:0},{z:-6.28319,ease:"steps(60)"})
+
+                let gearTopTl = new TimelineLite({
+                    onComplete:function(){
+                        this.restart()
+                    }
+                }).fromTo(scene.children[1].children[0].rotation,60,{z:0},{z:-6.28319})
+
+                let gearBotTl = new TimelineLite({
+                    onComplete:function(){
+                        this.restart()
+                    }
+                }).fromTo(scene.children[1].children[1].rotation,60,{z:0.2},{z:6.48319})
+
                 this.sceneGroup.add(scene)
             }
         )
