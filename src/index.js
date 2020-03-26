@@ -344,24 +344,39 @@ slider.init()
 // Animated assets
 let isPlaying = true
 let callOnce = true
+
 let animatedMeshes={
 }
+
 let getMeshes = () => {
-    setTimeout(function(){
-        if(slider.sceneAray[0].children.length == 0) {
-            getMeshes()
-        }
-        else {
-            setTimeout(function(){
-                animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
-                animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
-                animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
-                animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
-                animatedMeshes.clock = slider.sceneAray[2].children[0].children[0].children[1]
-            },200)
-        }
-    },200)
+    console.log("Chargement en cours...")
+    animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
+    animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
+    animatedMeshes.sun = slider.sceneAray[0].children[0].children[0].children[1]
+    animatedMeshes.clouds = slider.sceneAray[0].children[0].children[0].children[0]
+    animatedMeshes.clock = slider.sceneAray[2].children[0].children[0].children[1]
 }
+
+let handleMesh=()=>{
+    if(animatedMeshes.clock == undefined){
+        try {
+            console.log('Je vais essayer de charger les modèles')
+            getMeshes()
+        } catch (error) {
+            console.log('Erreur, je réessaie')
+            setTimeout(handleMesh,800)
+        }
+        finally{
+            if(animatedMeshes.clock != undefined){
+                console.log("On a réussi")
+                start()
+            }
+        }
+    }
+}
+handleMesh()
+
+
 let hourGlassReverse = () =>{
     if (callOnce){
         callOnce=false
@@ -398,7 +413,6 @@ let hourGlassReverse = () =>{
     }
 
 }
-getMeshes()
 
 //Raycaster
 const raycaster = new THREE.Raycaster()
@@ -476,7 +490,7 @@ composer.addPass( bloomPass );
 const loop = () =>
 {
     //Sundial
-    if (animatedMeshes.sun && slider.curIndex==0 && isPlaying){
+    if (animatedMeshes.sun && slider.curIndex==0){
         setUp.sunL.position.x=camera.mouse.x*20
         animatedMeshes.sun.rotation.z=-(((camera.mouse.x+1)/2)*2.8)
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
@@ -516,4 +530,7 @@ const loop = () =>
     composer.render();
 }
 
-loop()
+let start = () =>{
+    loop()
+}
+

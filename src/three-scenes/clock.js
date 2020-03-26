@@ -24,7 +24,6 @@ let clock = {
                     })
                 }
                 scene.children[0].children[1].material = this.objectMaterial
-                console.log(scene)
                 let massTl = new TimelineLite({
                     onComplete: function() {
                       this.restart();
