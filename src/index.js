@@ -296,9 +296,8 @@ let slider = {
             }
             }
         )
-
-        
         this.curIndex = target
+        setSunAnime()
         this.setInfo()
     },
     handleNext:function(){
@@ -356,7 +355,6 @@ let animatedMeshes={
 }
 
 let getMeshes = () => {
-    console.log("Chargement en cours...")
     animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
     animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
     animatedMeshes.sun = slider.sceneAray[0].children[0].children[1].children[1]
@@ -367,15 +365,12 @@ let getMeshes = () => {
 let handleMesh=()=>{
     if(animatedMeshes.clock == undefined){
         try {
-            console.log('Je vais essayer de charger les modèles')
             getMeshes()
         } catch (error) {
-            console.log('Erreur, je réessaie')
             setTimeout(handleMesh,800)
         }
         finally{
             if(animatedMeshes.clock != undefined){
-                console.log("On a réussi")
                 start()
                 setSunAnime()
             }
@@ -463,7 +458,7 @@ let interactDOMFunction = () =>{
             break;
     }
 }
-slider.interactDOM.addEventListener('click',() =>{
+document.addEventListener('click',() =>{
     interactDOMFunction()
 })
 
@@ -509,6 +504,7 @@ let setSunAnime = () =>{
         }
         }).fromTo(animatedMeshes.sun.rotation,5,{y:-0,ease:'Power3.easeInOut'},{y:-2.8,ease:'Power3.easeInOut'})
         .fromTo(animatedMeshes.sun.rotation,5,{y:-2.8,ease:'Power3.easeInOut'},{y:-0,ease:'Power3.easeInOut'})
+        
     if(window.innerWidth < 800 && slider.curIndex==0){
         sunLightTL.play()
         sunTL.play()
@@ -525,7 +521,7 @@ let setSunAnime = () =>{
 const loop = () =>
 {
     //Sundial
-    if (animatedMeshes.sun && slider.curIndex==0){
+    if (slider.curIndex==0){
         if(window.innerWidth>800){
             setUp.sunL.position.x=camera.mouse.x*20
             animatedMeshes.sun.rotation.y=-(((camera.mouse.x+1)/2)*2.8)
@@ -534,8 +530,8 @@ const loop = () =>
     }
     else if(slider.curIndex==1) {
         raycaster.setFromCamera(camera.mouse,camera.camera)
-        const intersectsClock = raycaster.intersectObject(slider.sceneAray[1].children[0], true)
-        if(intersectsClock.length){
+        const intersectsGlass = raycaster.intersectObject(slider.sceneAray[1].children[0], true)
+        if(intersectsGlass.length){
             hourglassFlip=true
         }
         else{
