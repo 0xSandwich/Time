@@ -24,7 +24,7 @@ let sunDial = {
                 })
                 scene.children[0].traverse((child)=>{
                     if(child.name=="MoText_2"){
-                        scene.children[0].children[3].material = new THREE.MeshPhysicalMaterial({color:0x0099ff,roughness:0.9})
+                        child.material = new THREE.MeshPhysicalMaterial({color:0x0099ff,roughness:0.9})
                     }
                 })
                 
