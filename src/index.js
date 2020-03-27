@@ -62,6 +62,7 @@ window.addEventListener('resize', () =>
     composer.setSize( sizes.width, sizes.height );
 
     camera.setMobileAnim()
+    setSunAnime()
 
     // Update camera
     camera.camera.aspect = sizes.width / sizes.height
@@ -494,18 +495,21 @@ composer.addPass( bloomPass );
 let setSunAnime = () =>{
     let sunLightTL = new TimelineLite({
         onComplete: function() {
-          this.restart();
+            if(slider.curIndex==0 && window.innerWidth < 800){
+                this.restart();
+            }
         }
       }).fromTo(setUp.sunL.position,5,{x:-20,ease:'Power3.easeInOut'},{x:20,ease:'Power3.easeInOut'})
       .fromTo(setUp.sunL.position,5,{x:20,ease:'Power3.easeInOut'},{x:-20,ease:'Power3.easeInOut'})
     let sunTL = new TimelineLite({
     onComplete: function() {
+        if(slider.curIndex==0 && window.innerWidth < 800){
             this.restart();
+        }
         }
         }).fromTo(animatedMeshes.sun.rotation,5,{y:-0,ease:'Power3.easeInOut'},{y:-2.8,ease:'Power3.easeInOut'})
         .fromTo(animatedMeshes.sun.rotation,5,{y:-2.8,ease:'Power3.easeInOut'},{y:-0,ease:'Power3.easeInOut'})
-
-    if(window.innerWidth < 800){
+    if(window.innerWidth < 800 && slider.curIndex==0){
         sunLightTL.play()
         sunTL.play()
     }
@@ -525,7 +529,6 @@ const loop = () =>
         if(window.innerWidth>800){
             setUp.sunL.position.x=camera.mouse.x*20
             animatedMeshes.sun.rotation.y=-(((camera.mouse.x+1)/2)*2.8)
-            console.log(animatedMeshes.sun.rotation.y)
         }
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }

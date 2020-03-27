@@ -22,8 +22,12 @@ let sunDial = {
                     child.castShadow=true
                     child.receiveShadow=true
                 })
-                console.log(scene.children[0])
-                scene.children[0].children[3].material = new THREE.MeshPhysicalMaterial({color:0x0099ff,roughness:0.9})
+                scene.children[0].traverse((child)=>{
+                    if(child.name=="MoText_2"){
+                        scene.children[0].children[3].material = new THREE.MeshPhysicalMaterial({color:0x0099ff,roughness:0.9})
+                    }
+                })
+                
                 this.sceneGroup.add(scene)
             }
         )

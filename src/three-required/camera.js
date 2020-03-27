@@ -19,6 +19,7 @@ let camera = {
                 this.restart()
             }
         }).fromTo(this.camera.position,10,{x:-0.1,ease:'none'},{x:0.1,ease:'none'})
+        .fromTo(this.camera.position,10,{x:0.1,ease:'none'},{x:-0.1,ease:'none'})
         this.setMobileAnim()
         return this.cameraWrapper
     },
