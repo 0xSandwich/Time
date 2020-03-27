@@ -13,6 +13,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import {TweenLite} from 'gsap/all'
+import {TimelineLite} from 'gsap/all'
 import * as dat from 'dat.gui';
 
 const sceneSettings = {
@@ -59,6 +60,8 @@ window.addEventListener('resize', () =>
 
     // Update composer
     composer.setSize( sizes.width, sizes.height );
+
+    camera.setMobileAnim()
 
     // Update camera
     camera.camera.aspect = sizes.width / sizes.height
@@ -200,7 +203,6 @@ let slider = {
 
     },
     init : function() {
-        camera.init()
         for(let i=0;i<this.sceneAray.length;i++){
             this.containerAray.push(new Container(this.settings.width,this.settings.height,this.settings.depth,i*(this.settings.width+this.settings.margin)))
             this.containerAray[i].group.add(this.sceneAray[i])
@@ -374,6 +376,7 @@ let handleMesh=()=>{
             if(animatedMeshes.clock != undefined){
                 console.log("On a réussi")
                 start()
+                setSunAnime()
             }
         }
     }
@@ -488,6 +491,30 @@ let composer = new EffectComposer( renderer );
 composer.addPass( renderScene );
 composer.addPass( bloomPass );
 
+let setSunAnime = () =>{
+    let sunLightTL = new TimelineLite({
+        onComplete: function() {
+          this.restart();
+        }
+      }).fromTo(setUp.sunL.position,5,{x:-20,ease:'Power3.easeInOut'},{x:20,ease:'Power3.easeInOut'})
+      .fromTo(setUp.sunL.position,5,{x:20,ease:'Power3.easeInOut'},{x:-20,ease:'Power3.easeInOut'})
+    let sunTL = new TimelineLite({
+    onComplete: function() {
+            this.restart();
+        }
+        }).fromTo(animatedMeshes.sun.rotation,5,{y:-0,ease:'Power3.easeInOut'},{y:-2.8,ease:'Power3.easeInOut'})
+        .fromTo(animatedMeshes.sun.rotation,5,{y:-2.8,ease:'Power3.easeInOut'},{y:-0,ease:'Power3.easeInOut'})
+
+    if(window.innerWidth < 800){
+        sunLightTL.play()
+        sunTL.play()
+    }
+    else{
+        sunLightTL.pause()
+        sunTL.pause()
+    }
+}
+
 /**
  * Loop
  */
@@ -495,8 +522,11 @@ const loop = () =>
 {
     //Sundial
     if (animatedMeshes.sun && slider.curIndex==0){
-        setUp.sunL.position.x=camera.mouse.x*20
-        animatedMeshes.sun.rotation.y=-(((camera.mouse.x+1)/2)*2.8)
+        if(window.innerWidth>800){
+            setUp.sunL.position.x=camera.mouse.x*20
+            animatedMeshes.sun.rotation.y=-(((camera.mouse.x+1)/2)*2.8)
+            console.log(animatedMeshes.sun.rotation.y)
+        }
         animatedMeshes.clouds.position.x=-((camera.mouse.x)*200)
     }
     else if(slider.curIndex==1) {

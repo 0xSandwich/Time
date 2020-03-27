@@ -398,3 +398,47 @@ body
     p 
         color white
         font-family 'avenirBook'
+
+@media screen and (max-width:800px){
+    .cursor{
+        display: none
+    }
+    #timeline{
+        display: none
+    }
+    .home{
+        position fixed
+        .title-home{
+            margin-top: 20px !important
+            h1{
+                font-size: 32px;
+            }
+            #little-message{
+                margin-top: 40px !important
+            }
+        }
+        #roman-numbers{
+            display none
+        }
+        #triangle{
+            display none
+        }
+        .clock{
+            display none    
+        }
+        .links{
+            flex-direction: column
+            align-items: center
+        }
+    }
+    #info{
+        #title,#description,#questions{
+            display none
+        }
+            
+    }
+    #interaction{
+        width:80%
+        text-align: right 
+    }
+}
