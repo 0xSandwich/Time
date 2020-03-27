@@ -23,12 +23,15 @@ let camera = {
         return this.cameraWrapper
     },
     onMouseMove: function(event) {
-        this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-        this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-        this.camera.position.x=-(this.mouse.x/4)
-        this.camera.position.y=-(this.mouse.y/4)
-        this.camera.rotation.y=-(this.mouse.x/4)
-        this.camera.rotation.x=(this.mouse.y/4)
+        if(window.innerWidth>800){
+            this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+            this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+            this.camera.position.x=-(this.mouse.x/4)
+            this.camera.position.y=-(this.mouse.y/4)
+            this.camera.rotation.y=-(this.mouse.x/4)
+            this.camera.rotation.x=(this.mouse.y/4)
+        }
+
     },
     setMobileAnim:function(){
         if(window.innerWidth<=800){
