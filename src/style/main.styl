@@ -21,15 +21,25 @@ body
     cursor none
 
 .cursor 
-    width 55px
-    height 55px
-    border-radius 50%
-    background rgba(255,255,255,0.4)
+    position: fixed
+    width 15px
+    height 15px
+    border-radius 100%
+    background rgba(255,255,255,1)
     position absolute
     transform translate(-50%, -50%)
     pointer-events none
     z-index 100
-
+.cursor-delay
+    position: fixed
+    width 55px
+    height 55px
+    border-radius 100%
+    background rgba(255,255,255,0.3)
+    position absolute
+    transform translate(-50%, -50%)
+    pointer-events none
+    z-index 100
 // 
 //HOME 
 //
@@ -242,7 +252,7 @@ body
 
     #dates .date.hourglass,
     #dates .date.pendulum-clock
-        opacity 0.3
+        opacity 0.5
         transition opacity 2s ease-out
 
     #dates .date.sundial .text-description
@@ -326,38 +336,38 @@ body
     backdrop-filter: blur(20px)
     transition: all 0.8s ease-in-out
     #button-next-prev
+        display: flex
+        justify-content: flex-end
         #next-btn
-            position: absolute
             right 0
-            color white
-            padding 15px
-            width 50%
+            padding 8px 15px
+            width: 80px
+            border-radius 30px
+            background: white
+            transition: all 0.3s
             #next-btn-text
-                color white 
+                color #5a5a5a
+                text-align: center;
                 font-size 0.9em 
                 width: 100%
-                text-align right
-            #underLine-next
-                margin-left: auto
-                background: white
-                width: 7.6vw
-                height: 0.3vh
+        #next-btn:hover 
+            background: #e6e6e6
+            transition: all 0.3s
         #prev-btn
-            position: absolute
-            left 0
-            color white
-            padding 15px
-            width 50%
+            margin-right:20px
+            padding 8px 15px
+            width: 80px
+            border-radius 30px
+            background: white
+            transition: all 0.3s
             #prev-btn-text
-                color white 
+                color #5a5a5a
+                text-align: center;
                 font-size 0.9em 
                 width: 100%
-                text-align left
-            #underLine-prev
-                margin-right auto
-                background: white
-                width: 7.6vw
-                height: 0.3vh
+        #prev-btn:hover 
+            background: #e6e6e6
+            transition: all 0.3s
     #title
         padding: 0
         margin: 5%
@@ -402,6 +412,9 @@ body
     .cursor{
         display: none
     }
+    .cursor-delay{
+        display:none
+        }
     #timeline{
         display: none
     }
@@ -433,15 +446,33 @@ body
     #info{
         width 100%
         right 0
+        backdrop-filter: none
+        position: fixed;
+        height: 100%;
+        display: flex;
+        top: 0;
+        flex-direction: column;
+        align-items: center;
         #title,#description,#questions{
             display none
         }
             
     }
     #interaction{
-        width:80%
-        text-align: center 
+        display: none
     }
+    #button-next-prev{
+        position: fixed;
+        bottom: 80px;
+        justify-content: space-between !important}
     #next-btn,#prev-btn{
         width: fit-content !important}
+    #prev-btn:hover , #next-btn:hover{
+        background:white !important}
+    .info-hidden{
+        transform: translateX(0%) !important
+        transform: translateY(100%) !important
+        opacity :0 !important
+        transition: all 0.8s ease-in-out
+    }
 }

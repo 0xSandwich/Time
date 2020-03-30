@@ -97,17 +97,24 @@ window.addEventListener('mousemove', (_event)=>
  * Cursor
  */
 const cursor = document.querySelector('.cursor')
+const cursorDelay = document.querySelector('.cursor-delay')
 
     document.addEventListener('mousemove', (e) =>
     {
-        cursor.setAttribute("style", "top: " + e.pageY + "px; left:" + e.pageX + "px;")
+        const x = e.pageX
+        const y = e.pageY
+        cursor.setAttribute("style", "top: " + y + "px; left:" + x + "px;")
+        setTimeout(()=>{
+            cursorDelay.setAttribute("style", "top: " + y + "px; left:" + x + "px;")
+        },
+        50)
     })
 
 
 /**
  * Objects
  */
-let slider = {
+const slider = {
     btnNext:document.querySelector('#next-btn'),
     btnPrev:document.querySelector('#prev-btn'),
     curIndex:0,
@@ -300,46 +307,45 @@ let slider = {
         setSunAnime()
         this.setInfo()
     },
+    checkTimeLine:function(checked){
+        this.timeline[this.curIndex].style.opacity = 1
+                    this.timeline[this.curIndex].style.pointerEvents = 'auto'
+                    if(this.curIndex+2==2 && checked==0){
+                        this.timeline[3].style.transform = 'scaleX(0)'
+                    }
+                    else if(this.curIndex+1==2 && checked==0)
+                    {
+                        this.timeline[3].style.transform = 'scaleX(175)'
+                        checked = 1
+                    }
+                    else if (this.curIndex==2)
+                    {
+                        this.timeline[3].style.transform = 'scaleX(350)'
+                    }
+    },
     handleNext:function(){
         let checked = 0
+        document.addEventListener('keydown',(e)=>{
+            if(e.code=="Space" || e.code=="ArrowRight"){
+                this.goTo(this.curIndex+1)
+            }
+            
+        })
         this.btnNext.addEventListener('click',()=>{
             this.goTo(this.curIndex+1)
-
-            this.timeline[this.curIndex].style.opacity = 1
-            this.timeline[this.curIndex].style.pointerEvents = 'auto'
-
-            if(this.curIndex+1==2 && checked==0)
-            {
-                this.timeline[3].style.transform = 'scaleX(175)'
-                checked = 1
-            }
-            else if (this.curIndex==2)
-            {
-                this.timeline[3].style.transform = 'scaleX(350)'
-            }
+            this.checkTimeLine(checked)
         }, false)
         this.btnPrev.addEventListener('click',()=>{
             this.whoosh[0].play()
             this.goTo(this.curIndex-1)
-
-            this.timeline[this.curIndex].style.opacity = 1
-            this.timeline[this.curIndex].style.pointerEvents = 'auto'
-
-            if(this.curIndex+1==2 && checked==0)
-            {
-                this.timeline[3].style.transform = 'scaleX(175)'
-                checked = 1
-            }
-            else if (this.curIndex==2)
-            {
-                this.timeline[3].style.transform = 'scaleX(350)'
-            }
+            this.checkTimeLine(checked)
         }, false)
         for (let i = 0; i < 3; i++) 
         {
             this.timeline[i].addEventListener('click',()=>
             {
                 this.goTo(i)
+                this.checkTimeLine(checked)
             })
         }
     }
@@ -351,10 +357,10 @@ slider.init()
 let isPlaying = true
 let callOnce = true
 
-let animatedMeshes={
+const animatedMeshes={
 }
 
-let getMeshes = () => {
+const getMeshes = () => {
     animatedMeshes.hourGlassTop = slider.sceneAray[1].children[0].children[0].children[1]
     animatedMeshes.hourGlassBot = slider.sceneAray[1].children[0].children[0].children[0]
     animatedMeshes.sun = slider.sceneAray[0].children[0].children[1].children[1]
@@ -362,7 +368,7 @@ let getMeshes = () => {
     animatedMeshes.clock = slider.sceneAray[2].children[0].children[0].children[1]
 }
 
-let handleMesh=()=>{
+const handleMesh=()=>{
     if(animatedMeshes.clock == undefined){
         try {
             getMeshes()
@@ -380,7 +386,7 @@ let handleMesh=()=>{
 handleMesh()
 
 
-let hourGlassReverse = () =>{
+const hourGlassReverse = () =>{
     if (callOnce){
         callOnce=false
         animatedMeshes.hourGlassTop.scale.y=0.06
@@ -431,7 +437,7 @@ document.addEventListener('click',()=>{
 })
 
 // Interactions
-let interactDOMFunction = () =>{
+const interactDOMFunction = () =>{
     switch (slider.curIndex) {
         case 0:
             break;
@@ -471,23 +477,23 @@ renderer.shadowMap.enabled = true
 renderer.physicallyCorrectLights=true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap; // options are THREE.BasicShadowMap | THREE.PCFShadowMap | THREE.PCFSoftShadowMap
 document.body.appendChild(renderer.domElement)
-let renderScene = new RenderPass( scene, camera.camera ) 
+const renderScene = new RenderPass( scene, camera.camera ) 
 // Post processing
-var params = {
-    exposure: 0.9,
-    bloomStrength: 0.4,
-    bloomThreshold: 0.1,
-    bloomRadius: 1
+const params = {
+      exposure: 0.9,
+      bloomStrength: 0.4,
+      bloomThreshold: 0.1,
+      bloomRadius: 1
 };
-let bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
+const bloomPass = new UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
 bloomPass.threshold = params.bloomThreshold;
 bloomPass.strength = params.bloomStrength;
 bloomPass.radius = params.bloomRadius;
-let composer = new EffectComposer( renderer );
+const composer = new EffectComposer( renderer );
 composer.addPass( renderScene );
 composer.addPass( bloomPass );
 
-let setSunAnime = () =>{
+const setSunAnime = () =>{
     let sunLightTL = new TimelineLite({
         onComplete: function() {
             if(slider.curIndex==0 && window.innerWidth < 800){
@@ -563,7 +569,7 @@ const loop = () =>
     composer.render();
 }
 
-let start = () =>{
+const start = () =>{
     loop()
 }
 

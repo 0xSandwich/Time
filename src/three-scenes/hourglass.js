@@ -50,14 +50,18 @@ let hourGlass = {
         )
 
         // Sable
-        let sandBot = new THREE.Mesh(this.sandGeometry,this.sandMaterial)
+        const sandBot = new THREE.Mesh(this.sandGeometry,this.sandMaterial)
         sandBot.geometry.translate(0,0.1,0)
         sandBot.position.y=-0.1
         sandBot.scale.y=0.7
+        sandBot.castShadow=true
+        sandBot.receiveShadow=true
         
-        let sandTop = new THREE.Mesh(this.sandGeometry,this.sandMaterial)
+        const sandTop = new THREE.Mesh(this.sandGeometry,this.sandMaterial)
         sandTop.position.y=0.2
         sandTop.scale.y=0.3
+        sandTop.castShadow=true
+        sandTop.receiveShadow=true
 
         this.hourGlassWrapper.add(sandBot)
         this.hourGlassWrapper.add(sandTop)
