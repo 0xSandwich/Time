@@ -220,7 +220,9 @@ const slider = {
         this.handleNext()
         this.setInfo()
         this.setMute()
-
+        this.whoosh[0].volume=0.3
+        this.cuckoo[0].volume=0.3
+        this.song[0].volume=0.3
         this.startInit[0].addEventListener('click', () => 
         {
             this.song[0].play()
@@ -247,8 +249,9 @@ const slider = {
                 this.volume[1].style.opacity = 0
                 this.volume[0].style.opacity = 1
                 this.song[0].play()
-                this.whoosh[0].volume=0.8
-                this.cuckoo[0].volume=1
+                this.whoosh[0].volume=0.3
+                this.cuckoo[0].volume=0.3
+                this.song[0].volume=0.3
             }
         })
     },
